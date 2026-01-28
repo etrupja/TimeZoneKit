@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneKit", "TimeZoneKit\TimeZoneKit.csproj", "{ECA50FC2-8377-44FF-A06B-F793887AD847}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneKit.Tests", "TimeZoneKit.Tests\TimeZoneKit.Tests.csproj", "{FEEDF499-6133-47C3-884A-69CEFBF74294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,9 @@ Global
 		{ECA50FC2-8377-44FF-A06B-F793887AD847}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECA50FC2-8377-44FF-A06B-F793887AD847}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECA50FC2-8377-44FF-A06B-F793887AD847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEEDF499-6133-47C3-884A-69CEFBF74294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEEDF499-6133-47C3-884A-69CEFBF74294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEEDF499-6133-47C3-884A-69CEFBF74294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEEDF499-6133-47C3-884A-69CEFBF74294}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
