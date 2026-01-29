@@ -74,6 +74,16 @@ public class GeographicTests
     }
 
     [Fact]
+    public void GetByOffset_PositiveOffset_WorksCorrectly()
+    {
+        var offset = TimeSpan.FromHours(9);
+        var timezones = TimeZoneKit.GetByOffset(offset);
+
+        Assert.NotNull(timezones);
+        Assert.Contains("Asia/Tokyo", timezones);
+    }
+    
+    [Fact]
     public void GetByOffset_ReturnsMatchingTimezones()
     {
         var offset = TimeSpan.FromHours(-5);
@@ -81,7 +91,7 @@ public class GeographicTests
 
         Assert.NotNull(timezones);
         Assert.NotEmpty(timezones);
-        Assert.Contains("America/New_York", timezones);
+        Assert.Contains("America/Bogota", timezones); // Always UTC-5, no DST
     }
 
     [Fact]
@@ -91,16 +101,6 @@ public class GeographicTests
         var timezones = TimeZoneKit.GetByOffset(offset);
 
         Assert.NotNull(timezones);
-        Assert.Contains("Europe/London", timezones);
-    }
-
-    [Fact]
-    public void GetByOffset_PositiveOffset_WorksCorrectly()
-    {
-        var offset = TimeSpan.FromHours(9);
-        var timezones = TimeZoneKit.GetByOffset(offset);
-
-        Assert.NotNull(timezones);
-        Assert.Contains("Asia/Tokyo", timezones);
+        Assert.Contains("UTC", timezones); // Always UTC+0
     }
 }

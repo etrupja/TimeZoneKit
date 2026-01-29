@@ -23,16 +23,17 @@ public class ConversionTests
 
         Assert.Equal(11, eastTime.Hour); // UTC-4 during daylight time
     }
-
+    
     [Fact]
     public void Convert_BetweenTimezones_ReturnsCorrectTime()
     {
-        var nyTime = new DateTime(2025, 1, 28, 10, 0, 0);
+        var nyTime = new DateTime(2025, 1, 28, 10, 0, 0, DateTimeKind.Unspecified);
         var tokyoTime = TimeZoneKit.Convert(nyTime, "America/New_York", "Asia/Tokyo");
 
         // NY is UTC-5, Tokyo is UTC+9, difference is 14 hours
-        Assert.Equal(0, tokyoTime.Day); // Next day
+        Assert.Equal(29, tokyoTime.Day); // Next day (Jan 29)
         Assert.Equal(0, tokyoTime.Hour); // Midnight
+        Assert.Equal(new DateTime(2025, 1, 29, 0, 0, 0), tokyoTime);
     }
 
     [Fact]

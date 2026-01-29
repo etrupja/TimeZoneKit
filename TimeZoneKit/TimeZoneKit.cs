@@ -222,7 +222,27 @@ public static class TimeZoneKit
         }
 
         var timeZone = TimeZoneResolver.GetTimeZoneInfo(timeZoneId);
-        return timeZone.SupportsDaylightSavingTime;
+
+        // Check if the timezone has any current or future DST rules
+        // This is more accurate than SupportsDaylightSavingTime which returns true
+        // for timezones with historical DST rules that are no longer in effect
+        var adjustmentRules = timeZone.GetAdjustmentRules();
+        if (adjustmentRules.Length == 0)
+        {
+            return false;
+        }
+
+        var today = DateTime.UtcNow.Date;
+        foreach (var rule in adjustmentRules)
+        {
+            // Check if the rule is current or future
+            if (rule.DateEnd >= today || rule.DateEnd == DateTime.MaxValue.Date)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -421,7 +441,10 @@ public static class TimeZoneKit
 
         foreach (var kvp in TimeZoneMappings.Mappings)
         {
-            if (TimeSpan.TryParse(kvp.Value.BaseOffset, out var baseOffset))
+            // Remove leading '+' sign if present, as TimeSpan.TryParse doesn't handle it
+            var offsetStr = kvp.Value.BaseOffset?.TrimStart('+') ?? string.Empty;
+
+            if (TimeSpan.TryParse(offsetStr, out var baseOffset))
             {
                 if (baseOffset == offset)
                 {

@@ -10,6 +10,8 @@ public class DstTests
     [InlineData("Europe/London", true)]
     [InlineData("Asia/Tokyo", false)]
     [InlineData("Pacific/Honolulu", false)]
+    [InlineData("Asia/Shanghai", false)]
+    [InlineData("Asia/Dubai", false)]
     public void SupportsDst_ReturnsCorrectValue(string timeZoneId, bool expectedSupportsDst)
     {
         var supportsDst = TimeZoneKit.SupportsDst(timeZoneId);

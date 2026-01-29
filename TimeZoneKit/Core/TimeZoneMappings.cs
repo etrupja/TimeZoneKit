@@ -49,42 +49,51 @@ internal static class TimeZoneMappings
     private static Dictionary<string, TimeZoneData> LoadMappings()
     {
         var json = LoadEmbeddedResource("timezone-mappings.json");
-        return JsonSerializer.Deserialize<Dictionary<string, TimeZoneData>>(json)
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        return JsonSerializer.Deserialize<Dictionary<string, TimeZoneData>>(json, options)
                ?? new Dictionary<string, TimeZoneData>();
     }
 
     private static Dictionary<string, string> LoadAbbreviations()
     {
         var json = LoadEmbeddedResource("abbreviations.json");
-        return JsonSerializer.Deserialize<Dictionary<string, string>>(json)
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        return JsonSerializer.Deserialize<Dictionary<string, string>>(json, options)
                ?? new Dictionary<string, string>();
     }
 
     private static Dictionary<string, string> LoadCityMappings()
     {
         var json = LoadEmbeddedResource("city-timezones.json");
-        return JsonSerializer.Deserialize<Dictionary<string, string>>(json)
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        return JsonSerializer.Deserialize<Dictionary<string, string>>(json, options)
                ?? new Dictionary<string, string>();
     }
 
     private static Dictionary<string, string[]> LoadCountryMappings()
     {
         var json = LoadEmbeddedResource("country-timezones.json");
-        return JsonSerializer.Deserialize<Dictionary<string, string[]>>(json)
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        return JsonSerializer.Deserialize<Dictionary<string, string[]>>(json, options)
                ?? new Dictionary<string, string[]>();
     }
 
     private static string[] LoadCommonTimezones()
     {
         var json = LoadEmbeddedResource("common-timezones.json");
-        return JsonSerializer.Deserialize<string[]>(json)
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        return JsonSerializer.Deserialize<string[]>(json, options)
                ?? Array.Empty<string>();
     }
 
     private static Dictionary<string, string> LoadDisplayNames()
     {
         var json = LoadEmbeddedResource("display-names-en.json");
-        return JsonSerializer.Deserialize<Dictionary<string, string>>(json)
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        return JsonSerializer.Deserialize<Dictionary<string, string>>(json, options)
                ?? new Dictionary<string, string>();
     }
 

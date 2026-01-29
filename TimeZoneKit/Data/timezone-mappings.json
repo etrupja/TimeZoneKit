@@ -1,4 +1,12 @@
 {
+  "UTC": {
+    "windows": "UTC",
+    "abbreviations": ["UTC"],
+    "displayName": "Coordinated Universal Time",
+    "baseOffset": "+00:00",
+    "supportsDst": false,
+    "countries": []
+  },
   "America/New_York": {
     "windows": "Eastern Standard Time",
     "abbreviations": ["EST", "EDT"],
@@ -6,6 +14,14 @@
     "baseOffset": "-05:00",
     "supportsDst": true,
     "countries": ["US", "CA"]
+  },
+  "America/Bogota": {
+    "windows": "SA Pacific Standard Time",
+    "abbreviations": ["COT"],
+    "displayName": "Colombia Time",
+    "baseOffset": "-05:00",
+    "supportsDst": false,
+    "countries": ["CO"]
   },
   "America/Chicago": {
     "windows": "Central Standard Time",

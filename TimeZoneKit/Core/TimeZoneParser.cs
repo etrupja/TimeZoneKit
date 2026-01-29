@@ -168,7 +168,10 @@ internal static class TimeZoneParser
         // Find a timezone that matches the given offset
         foreach (var kvp in TimeZoneMappings.Mappings)
         {
-            if (TimeSpan.TryParse(kvp.Value.BaseOffset, out var baseOffset))
+            // Remove leading '+' sign if present, as TimeSpan.TryParse doesn't handle it
+            var offsetStr = kvp.Value.BaseOffset?.TrimStart('+') ?? string.Empty;
+
+            if (TimeSpan.TryParse(offsetStr, out var baseOffset))
             {
                 if (baseOffset == offset)
                 {
