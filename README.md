@@ -374,8 +374,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support
 
-- GitHub Issues: [https://github.com/ervistrupja/TimeZoneKit/issues](https://github.com/ervistrupja/TimeZoneKit/issues)
-- Documentation: [https://github.com/ervistrupja/TimeZoneKit](https://github.com/ervistrupja/TimeZoneKit)
+- GitHub Issues: [https://github.com/etrupja/TimeZoneKit/issues](https://github.com/etrupja/TimeZoneKit/issues)
+- Documentation: [https://github.com/etrupja/TimeZoneKit](https://github.com/etrupja/TimeZoneKit)
 
 ---
 
