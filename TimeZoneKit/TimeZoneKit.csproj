@@ -9,7 +9,7 @@
 
         <!-- NuGet Package Metadata -->
         <PackageId>TimeZoneKit</PackageId>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
         <Authors>Ervis Trupja</Authors>
         <Company>Ervis Trupja</Company>
         <Description>A simple, intuitive timezone library for .NET with localization, geographic lookup, and business hours support. Easier than NodaTime, more powerful than TimeZoneConverter.</Description>
@@ -19,7 +19,7 @@
         <RepositoryUrl>https://github.com/ervistrupja/TimeZoneKit</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Initial release with core timezone conversion, business hours, and geographic lookup features.</PackageReleaseNotes>
+        <PackageReleaseNotes>v1.1.0: Massive expansion - 350+ cities (from 80), 60+ countries (from 23), 110+ timezone mappings (from 25), 400+ unit tests (from 81). Comprehensive global coverage including all US/Canada zones, complete European coverage, all 11 Russian time zones, full Asia/Pacific support, and complete Latin America. Added support for half-hour and quarter-hour offsets.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
