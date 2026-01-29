@@ -1,3 +1,6 @@
+[![NuGet](https://img.shields.io/nuget/v/TimeZoneKit.svg)](https://www.nuget.org/packages/TimeZoneKit)
+[![Publish to NuGet](https://github.com/etrupja/TimeZoneKit/actions/workflows/publish.yml/badge.svg)](https://github.com/etrupja/TimeZoneKit/actions/workflows/publish.yml)
+
 # TimeZoneKit
 
 A simple, intuitive timezone library for .NET that makes working with timezones actually enjoyable.
