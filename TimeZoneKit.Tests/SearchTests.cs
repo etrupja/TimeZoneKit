@@ -52,6 +52,60 @@ public class SearchTests
         // Should find America/New_York, America/Chicago, etc.
     }
 
+    [Theory]
+    [InlineData("asia", "Asia/Tokyo")]
+    [InlineData("europe", "Europe/London")]
+    [InlineData("pacific", "Pacific/Auckland")]
+    [InlineData("australia", "Australia/Sydney")]
+    [InlineData("america", "America/New_York")]
+    public void Search_ContinentName_FindsMultipleResults(string continent, string expectedResult)
+    {
+        var results = TimeZoneKit.Search(continent);
+
+        Assert.NotNull(results);
+        Assert.NotEmpty(results);
+        Assert.Contains(expectedResult, results);
+    }
+
+    [Theory]
+    [InlineData("york")]
+    [InlineData("angeles")]
+    [InlineData("francisco")]
+    [InlineData("paulo")]
+    [InlineData("kong")]
+    public void Search_PartialCityName_FindsResults(string partial)
+    {
+        var results = TimeZoneKit.Search(partial);
+
+        Assert.NotNull(results);
+        Assert.NotEmpty(results);
+    }
+
+    [Theory]
+    [InlineData("UTC")]
+    [InlineData("GMT")]
+    [InlineData("EST")]
+    [InlineData("PST")]
+    [InlineData("JST")]
+    public void Search_AbbreviationSearch_FindsResults(string abbreviation)
+    {
+        var results = TimeZoneKit.Search(abbreviation);
+
+        Assert.NotNull(results);
+        Assert.NotEmpty(results);
+    }
+
+    [Theory]
+    [InlineData("standard")]
+    [InlineData("time")]
+    public void Search_CommonWords_FindsMultipleResults(string word)
+    {
+        var results = TimeZoneKit.Search(word);
+
+        Assert.NotNull(results);
+        Assert.NotEmpty(results);
+    }
+
     [Fact]
     public void GetCommonTimezones_ReturnsPopularZones()
     {

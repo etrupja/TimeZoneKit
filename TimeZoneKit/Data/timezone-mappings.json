@@ -15,6 +15,22 @@
     "supportsDst": true,
     "countries": ["US", "CA"]
   },
+  "America/Toronto": {
+    "windows": "Eastern Standard Time",
+    "abbreviations": ["EST", "EDT"],
+    "displayName": "Eastern Time (Toronto)",
+    "baseOffset": "-05:00",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
+  "America/Montreal": {
+    "windows": "Eastern Standard Time",
+    "abbreviations": ["EST", "EDT"],
+    "displayName": "Eastern Time (Montreal)",
+    "baseOffset": "-05:00",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
   "America/Bogota": {
     "windows": "SA Pacific Standard Time",
     "abbreviations": ["COT"],
@@ -22,6 +38,30 @@
     "baseOffset": "-05:00",
     "supportsDst": false,
     "countries": ["CO"]
+  },
+  "America/Lima": {
+    "windows": "SA Pacific Standard Time",
+    "abbreviations": ["PET"],
+    "displayName": "Peru Time",
+    "baseOffset": "-05:00",
+    "supportsDst": false,
+    "countries": ["PE"]
+  },
+  "America/Panama": {
+    "windows": "SA Pacific Standard Time",
+    "abbreviations": ["EST"],
+    "displayName": "Eastern Standard Time (Panama)",
+    "baseOffset": "-05:00",
+    "supportsDst": false,
+    "countries": ["PA"]
+  },
+  "America/Jamaica": {
+    "windows": "SA Pacific Standard Time",
+    "abbreviations": ["EST"],
+    "displayName": "Eastern Standard Time (Jamaica)",
+    "baseOffset": "-05:00",
+    "supportsDst": false,
+    "countries": ["JM"]
   },
   "America/Chicago": {
     "windows": "Central Standard Time",
@@ -31,6 +71,78 @@
     "supportsDst": true,
     "countries": ["US", "CA", "MX"]
   },
+  "America/Winnipeg": {
+    "windows": "Central Standard Time",
+    "abbreviations": ["CST", "CDT"],
+    "displayName": "Central Time (Winnipeg)",
+    "baseOffset": "-06:00",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
+  "America/Mexico_City": {
+    "windows": "Central Standard Time (Mexico)",
+    "abbreviations": ["CST", "CDT"],
+    "displayName": "Central Time (Mexico City)",
+    "baseOffset": "-06:00",
+    "supportsDst": true,
+    "countries": ["MX"]
+  },
+  "America/Monterrey": {
+    "windows": "Central Standard Time (Mexico)",
+    "abbreviations": ["CST", "CDT"],
+    "displayName": "Central Time (Monterrey)",
+    "baseOffset": "-06:00",
+    "supportsDst": true,
+    "countries": ["MX"]
+  },
+  "America/Costa_Rica": {
+    "windows": "Central America Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Central Standard Time (Costa Rica)",
+    "baseOffset": "-06:00",
+    "supportsDst": false,
+    "countries": ["CR"]
+  },
+  "America/Guatemala": {
+    "windows": "Central America Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Central Standard Time (Guatemala)",
+    "baseOffset": "-06:00",
+    "supportsDst": false,
+    "countries": ["GT"]
+  },
+  "America/El_Salvador": {
+    "windows": "Central America Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Central Standard Time (El Salvador)",
+    "baseOffset": "-06:00",
+    "supportsDst": false,
+    "countries": ["SV"]
+  },
+  "America/Tegucigalpa": {
+    "windows": "Central America Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Central Standard Time (Honduras)",
+    "baseOffset": "-06:00",
+    "supportsDst": false,
+    "countries": ["HN"]
+  },
+  "America/Managua": {
+    "windows": "Central America Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Central Standard Time (Nicaragua)",
+    "baseOffset": "-06:00",
+    "supportsDst": false,
+    "countries": ["NI"]
+  },
+  "America/Regina": {
+    "windows": "Canada Central Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Central Standard Time (Saskatchewan)",
+    "baseOffset": "-06:00",
+    "supportsDst": false,
+    "countries": ["CA"]
+  },
   "America/Denver": {
     "windows": "Mountain Standard Time",
     "abbreviations": ["MST", "MDT"],
@@ -38,6 +150,46 @@
     "baseOffset": "-07:00",
     "supportsDst": true,
     "countries": ["US", "CA"]
+  },
+  "America/Edmonton": {
+    "windows": "Mountain Standard Time",
+    "abbreviations": ["MST", "MDT"],
+    "displayName": "Mountain Time (Edmonton)",
+    "baseOffset": "-07:00",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
+  "America/Boise": {
+    "windows": "Mountain Standard Time",
+    "abbreviations": ["MST", "MDT"],
+    "displayName": "Mountain Time (Boise)",
+    "baseOffset": "-07:00",
+    "supportsDst": true,
+    "countries": ["US"]
+  },
+  "America/Phoenix": {
+    "windows": "US Mountain Standard Time",
+    "abbreviations": ["MST"],
+    "displayName": "Mountain Standard Time (Arizona)",
+    "baseOffset": "-07:00",
+    "supportsDst": false,
+    "countries": ["US"]
+  },
+  "America/Mazatlan": {
+    "windows": "Mountain Standard Time (Mexico)",
+    "abbreviations": ["MST", "MDT"],
+    "displayName": "Mountain Time (Mazatlan)",
+    "baseOffset": "-07:00",
+    "supportsDst": true,
+    "countries": ["MX"]
+  },
+  "America/Chihuahua": {
+    "windows": "Mountain Standard Time (Mexico)",
+    "abbreviations": ["MST", "MDT"],
+    "displayName": "Mountain Time (Chihuahua)",
+    "baseOffset": "-07:00",
+    "supportsDst": true,
+    "countries": ["MX"]
   },
   "America/Los_Angeles": {
     "windows": "Pacific Standard Time",
@@ -47,10 +199,34 @@
     "supportsDst": true,
     "countries": ["US", "CA"]
   },
+  "America/Vancouver": {
+    "windows": "Pacific Standard Time",
+    "abbreviations": ["PST", "PDT"],
+    "displayName": "Pacific Time (Vancouver)",
+    "baseOffset": "-08:00",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
+  "America/Tijuana": {
+    "windows": "Pacific Standard Time (Mexico)",
+    "abbreviations": ["PST", "PDT"],
+    "displayName": "Pacific Time (Tijuana)",
+    "baseOffset": "-08:00",
+    "supportsDst": true,
+    "countries": ["MX"]
+  },
   "America/Anchorage": {
     "windows": "Alaskan Standard Time",
     "abbreviations": ["AKST", "AKDT"],
     "displayName": "Alaska Time",
+    "baseOffset": "-09:00",
+    "supportsDst": true,
+    "countries": ["US"]
+  },
+  "America/Juneau": {
+    "windows": "Alaskan Standard Time",
+    "abbreviations": ["AKST", "AKDT"],
+    "displayName": "Alaska Time (Juneau)",
     "baseOffset": "-09:00",
     "supportsDst": true,
     "countries": ["US"]
@@ -63,21 +239,221 @@
     "supportsDst": false,
     "countries": ["US"]
   },
+  "America/Halifax": {
+    "windows": "Atlantic Standard Time",
+    "abbreviations": ["AST", "ADT"],
+    "displayName": "Atlantic Time",
+    "baseOffset": "-04:00",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
+  "America/Puerto_Rico": {
+    "windows": "SA Western Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Atlantic Standard Time (Puerto Rico)",
+    "baseOffset": "-04:00",
+    "supportsDst": false,
+    "countries": ["PR"]
+  },
+  "America/Santo_Domingo": {
+    "windows": "SA Western Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Atlantic Standard Time (Dominican Republic)",
+    "baseOffset": "-04:00",
+    "supportsDst": false,
+    "countries": ["DO"]
+  },
+  "America/Port_of_Spain": {
+    "windows": "SA Western Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Atlantic Standard Time (Trinidad)",
+    "baseOffset": "-04:00",
+    "supportsDst": false,
+    "countries": ["TT"]
+  },
+  "America/La_Paz": {
+    "windows": "SA Western Standard Time",
+    "abbreviations": ["BOT"],
+    "displayName": "Bolivia Time",
+    "baseOffset": "-04:00",
+    "supportsDst": false,
+    "countries": ["BO"]
+  },
+  "America/Caracas": {
+    "windows": "Venezuela Standard Time",
+    "abbreviations": ["VET"],
+    "displayName": "Venezuela Time",
+    "baseOffset": "-04:00",
+    "supportsDst": false,
+    "countries": ["VE"]
+  },
+  "America/Santiago": {
+    "windows": "Pacific SA Standard Time",
+    "abbreviations": ["CLT", "CLST"],
+    "displayName": "Chile Standard Time",
+    "baseOffset": "-04:00",
+    "supportsDst": true,
+    "countries": ["CL"]
+  },
+  "America/Asuncion": {
+    "windows": "Paraguay Standard Time",
+    "abbreviations": ["PYT", "PYST"],
+    "displayName": "Paraguay Time",
+    "baseOffset": "-04:00",
+    "supportsDst": true,
+    "countries": ["PY"]
+  },
+  "America/St_Johns": {
+    "windows": "Newfoundland Standard Time",
+    "abbreviations": ["NST", "NDT"],
+    "displayName": "Newfoundland Time",
+    "baseOffset": "-03:30",
+    "supportsDst": true,
+    "countries": ["CA"]
+  },
+  "America/Sao_Paulo": {
+    "windows": "E. South America Standard Time",
+    "abbreviations": ["BRT", "BRST"],
+    "displayName": "Brasilia Time",
+    "baseOffset": "-03:00",
+    "supportsDst": true,
+    "countries": ["BR"]
+  },
+  "America/Fortaleza": {
+    "windows": "SA Eastern Standard Time",
+    "abbreviations": ["BRT"],
+    "displayName": "Brasilia Time (Fortaleza)",
+    "baseOffset": "-03:00",
+    "supportsDst": false,
+    "countries": ["BR"]
+  },
+  "America/Recife": {
+    "windows": "SA Eastern Standard Time",
+    "abbreviations": ["BRT"],
+    "displayName": "Brasilia Time (Recife)",
+    "baseOffset": "-03:00",
+    "supportsDst": false,
+    "countries": ["BR"]
+  },
+  "America/Bahia": {
+    "windows": "Bahia Standard Time",
+    "abbreviations": ["BRT"],
+    "displayName": "Brasilia Time (Bahia)",
+    "baseOffset": "-03:00",
+    "supportsDst": false,
+    "countries": ["BR"]
+  },
+  "America/Argentina/Buenos_Aires": {
+    "windows": "Argentina Standard Time",
+    "abbreviations": ["ART"],
+    "displayName": "Argentina Time",
+    "baseOffset": "-03:00",
+    "supportsDst": false,
+    "countries": ["AR"]
+  },
+  "America/Argentina/Cordoba": {
+    "windows": "Argentina Standard Time",
+    "abbreviations": ["ART"],
+    "displayName": "Argentina Time (Cordoba)",
+    "baseOffset": "-03:00",
+    "supportsDst": false,
+    "countries": ["AR"]
+  },
+  "America/Montevideo": {
+    "windows": "Montevideo Standard Time",
+    "abbreviations": ["UYT", "UYST"],
+    "displayName": "Uruguay Time",
+    "baseOffset": "-03:00",
+    "supportsDst": true,
+    "countries": ["UY"]
+  },
+  "America/Manaus": {
+    "windows": "SA Western Standard Time",
+    "abbreviations": ["AMT"],
+    "displayName": "Amazon Time",
+    "baseOffset": "-04:00",
+    "supportsDst": false,
+    "countries": ["BR"]
+  },
+  "America/Noronha": {
+    "windows": "UTC-02",
+    "abbreviations": ["FNT"],
+    "displayName": "Fernando de Noronha Time",
+    "baseOffset": "-02:00",
+    "supportsDst": false,
+    "countries": ["BR"]
+  },
+  "Atlantic/Azores": {
+    "windows": "Azores Standard Time",
+    "abbreviations": ["AZOT", "AZOST"],
+    "displayName": "Azores Time",
+    "baseOffset": "-01:00",
+    "supportsDst": true,
+    "countries": ["PT"]
+  },
+  "Atlantic/Cape_Verde": {
+    "windows": "Cape Verde Standard Time",
+    "abbreviations": ["CVT"],
+    "displayName": "Cape Verde Time",
+    "baseOffset": "-01:00",
+    "supportsDst": false,
+    "countries": ["CV"]
+  },
   "Europe/London": {
     "windows": "GMT Standard Time",
     "abbreviations": ["GMT", "BST"],
     "displayName": "Greenwich Mean Time",
     "baseOffset": "+00:00",
     "supportsDst": true,
-    "countries": ["GB", "IE"]
+    "countries": ["GB"]
+  },
+  "Europe/Dublin": {
+    "windows": "GMT Standard Time",
+    "abbreviations": ["GMT", "IST"],
+    "displayName": "Irish Standard Time",
+    "baseOffset": "+00:00",
+    "supportsDst": true,
+    "countries": ["IE"]
+  },
+  "Europe/Lisbon": {
+    "windows": "GMT Standard Time",
+    "abbreviations": ["WET", "WEST"],
+    "displayName": "Western European Time",
+    "baseOffset": "+00:00",
+    "supportsDst": true,
+    "countries": ["PT"]
+  },
+  "Africa/Casablanca": {
+    "windows": "Morocco Standard Time",
+    "abbreviations": ["WET"],
+    "displayName": "Western European Time (Casablanca)",
+    "baseOffset": "+00:00",
+    "supportsDst": true,
+    "countries": ["MA"]
   },
   "Europe/Paris": {
     "windows": "Romance Standard Time",
     "abbreviations": ["CET", "CEST"],
-    "displayName": "Central European Time",
+    "displayName": "Central European Time (Paris)",
     "baseOffset": "+01:00",
     "supportsDst": true,
-    "countries": ["FR", "BE", "NL", "LU"]
+    "countries": ["FR"]
+  },
+  "Europe/Brussels": {
+    "windows": "Romance Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Brussels)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["BE"]
+  },
+  "Europe/Amsterdam": {
+    "windows": "W. Europe Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Amsterdam)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["NL"]
   },
   "Europe/Berlin": {
     "windows": "W. Europe Standard Time",
@@ -85,7 +461,23 @@
     "displayName": "Central European Time (Berlin)",
     "baseOffset": "+01:00",
     "supportsDst": true,
-    "countries": ["DE", "AT", "CH"]
+    "countries": ["DE"]
+  },
+  "Europe/Vienna": {
+    "windows": "W. Europe Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Vienna)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["AT"]
+  },
+  "Europe/Zurich": {
+    "windows": "W. Europe Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Zurich)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["CH"]
   },
   "Europe/Madrid": {
     "windows": "Romance Standard Time",
@@ -103,21 +495,325 @@
     "supportsDst": true,
     "countries": ["IT"]
   },
-  "Europe/Amsterdam": {
+  "Europe/Stockholm": {
     "windows": "W. Europe Standard Time",
     "abbreviations": ["CET", "CEST"],
-    "displayName": "Central European Time (Amsterdam)",
+    "displayName": "Central European Time (Stockholm)",
     "baseOffset": "+01:00",
     "supportsDst": true,
-    "countries": ["NL"]
+    "countries": ["SE"]
   },
-  "Asia/Tokyo": {
-    "windows": "Tokyo Standard Time",
-    "abbreviations": ["JST"],
-    "displayName": "Japan Standard Time",
-    "baseOffset": "+09:00",
+  "Europe/Copenhagen": {
+    "windows": "Romance Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Copenhagen)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["DK"]
+  },
+  "Europe/Oslo": {
+    "windows": "W. Europe Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Oslo)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["NO"]
+  },
+  "Europe/Prague": {
+    "windows": "Central Europe Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Prague)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["CZ"]
+  },
+  "Europe/Budapest": {
+    "windows": "Central Europe Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Budapest)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["HU"]
+  },
+  "Europe/Warsaw": {
+    "windows": "Central European Standard Time",
+    "abbreviations": ["CET", "CEST"],
+    "displayName": "Central European Time (Warsaw)",
+    "baseOffset": "+01:00",
+    "supportsDst": true,
+    "countries": ["PL"]
+  },
+  "Africa/Lagos": {
+    "windows": "W. Central Africa Standard Time",
+    "abbreviations": ["WAT"],
+    "displayName": "West Africa Time",
+    "baseOffset": "+01:00",
     "supportsDst": false,
-    "countries": ["JP"]
+    "countries": ["NG"]
+  },
+  "Europe/Athens": {
+    "windows": "GTB Standard Time",
+    "abbreviations": ["EET", "EEST"],
+    "displayName": "Eastern European Time",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["GR"]
+  },
+  "Europe/Bucharest": {
+    "windows": "GTB Standard Time",
+    "abbreviations": ["EET", "EEST"],
+    "displayName": "Eastern European Time (Bucharest)",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["RO"]
+  },
+  "Europe/Sofia": {
+    "windows": "FLE Standard Time",
+    "abbreviations": ["EET", "EEST"],
+    "displayName": "Eastern European Time (Sofia)",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["BG"]
+  },
+  "Europe/Helsinki": {
+    "windows": "FLE Standard Time",
+    "abbreviations": ["EET", "EEST"],
+    "displayName": "Eastern European Time (Helsinki)",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["FI"]
+  },
+  "Europe/Istanbul": {
+    "windows": "Turkey Standard Time",
+    "abbreviations": ["TRT"],
+    "displayName": "Turkey Time",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["TR"]
+  },
+  "Asia/Jerusalem": {
+    "windows": "Israel Standard Time",
+    "abbreviations": ["IST", "IDT"],
+    "displayName": "Israel Standard Time",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["IL"]
+  },
+  "Asia/Beirut": {
+    "windows": "Middle East Standard Time",
+    "abbreviations": ["EET", "EEST"],
+    "displayName": "Eastern European Time (Beirut)",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["LB"]
+  },
+  "Asia/Amman": {
+    "windows": "Jordan Standard Time",
+    "abbreviations": ["EET", "EEST"],
+    "displayName": "Eastern European Time (Amman)",
+    "baseOffset": "+02:00",
+    "supportsDst": true,
+    "countries": ["JO"]
+  },
+  "Africa/Cairo": {
+    "windows": "Egypt Standard Time",
+    "abbreviations": ["EET"],
+    "displayName": "Eastern European Time (Cairo)",
+    "baseOffset": "+02:00",
+    "supportsDst": false,
+    "countries": ["EG"]
+  },
+  "Africa/Johannesburg": {
+    "windows": "South Africa Standard Time",
+    "abbreviations": ["SAST"],
+    "displayName": "South Africa Standard Time",
+    "baseOffset": "+02:00",
+    "supportsDst": false,
+    "countries": ["ZA"]
+  },
+  "Africa/Nairobi": {
+    "windows": "E. Africa Standard Time",
+    "abbreviations": ["EAT"],
+    "displayName": "East Africa Time",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["KE"]
+  },
+  "Africa/Addis_Ababa": {
+    "windows": "E. Africa Standard Time",
+    "abbreviations": ["EAT"],
+    "displayName": "East Africa Time (Addis Ababa)",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["ET"]
+  },
+  "Africa/Dar_es_Salaam": {
+    "windows": "E. Africa Standard Time",
+    "abbreviations": ["EAT"],
+    "displayName": "East Africa Time (Dar es Salaam)",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["TZ"]
+  },
+  "Europe/Moscow": {
+    "windows": "Russian Standard Time",
+    "abbreviations": ["MSK"],
+    "displayName": "Moscow Standard Time",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Europe/Samara": {
+    "windows": "Russia Time Zone 3",
+    "abbreviations": ["SAMT"],
+    "displayName": "Samara Time",
+    "baseOffset": "+04:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Asia/Dubai": {
+    "windows": "Arabian Standard Time",
+    "abbreviations": ["GST"],
+    "displayName": "Gulf Standard Time",
+    "baseOffset": "+04:00",
+    "supportsDst": false,
+    "countries": ["AE", "OM"]
+  },
+  "Asia/Qatar": {
+    "windows": "Arab Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Arabia Standard Time (Qatar)",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["QA"]
+  },
+  "Asia/Riyadh": {
+    "windows": "Arab Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Arabia Standard Time",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["SA"]
+  },
+  "Asia/Kuwait": {
+    "windows": "Arab Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Arabia Standard Time (Kuwait)",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["KW"]
+  },
+  "Asia/Muscat": {
+    "windows": "Arabian Standard Time",
+    "abbreviations": ["GST"],
+    "displayName": "Gulf Standard Time (Muscat)",
+    "baseOffset": "+04:00",
+    "supportsDst": false,
+    "countries": ["OM"]
+  },
+  "Asia/Bahrain": {
+    "windows": "Arab Standard Time",
+    "abbreviations": ["AST"],
+    "displayName": "Arabia Standard Time (Bahrain)",
+    "baseOffset": "+03:00",
+    "supportsDst": false,
+    "countries": ["BH"]
+  },
+  "Asia/Yekaterinburg": {
+    "windows": "Ekaterinburg Standard Time",
+    "abbreviations": ["YEKT"],
+    "displayName": "Yekaterinburg Time",
+    "baseOffset": "+05:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Asia/Karachi": {
+    "windows": "Pakistan Standard Time",
+    "abbreviations": ["PKT"],
+    "displayName": "Pakistan Standard Time",
+    "baseOffset": "+05:00",
+    "supportsDst": false,
+    "countries": ["PK"]
+  },
+  "Asia/Kolkata": {
+    "windows": "India Standard Time",
+    "abbreviations": ["IST"],
+    "displayName": "India Standard Time",
+    "baseOffset": "+05:30",
+    "supportsDst": false,
+    "countries": ["IN"]
+  },
+  "Asia/Colombo": {
+    "windows": "Sri Lanka Standard Time",
+    "abbreviations": ["IST"],
+    "displayName": "Sri Lanka Standard Time",
+    "baseOffset": "+05:30",
+    "supportsDst": false,
+    "countries": ["LK"]
+  },
+  "Asia/Kathmandu": {
+    "windows": "Nepal Standard Time",
+    "abbreviations": ["NPT"],
+    "displayName": "Nepal Time",
+    "baseOffset": "+05:45",
+    "supportsDst": false,
+    "countries": ["NP"]
+  },
+  "Asia/Dhaka": {
+    "windows": "Bangladesh Standard Time",
+    "abbreviations": ["BST"],
+    "displayName": "Bangladesh Standard Time",
+    "baseOffset": "+06:00",
+    "supportsDst": false,
+    "countries": ["BD"]
+  },
+  "Asia/Omsk": {
+    "windows": "N. Central Asia Standard Time",
+    "abbreviations": ["OMST"],
+    "displayName": "Omsk Time",
+    "baseOffset": "+06:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Asia/Novosibirsk": {
+    "windows": "N. Central Asia Standard Time",
+    "abbreviations": ["NOVT"],
+    "displayName": "Novosibirsk Time",
+    "baseOffset": "+07:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Asia/Bangkok": {
+    "windows": "SE Asia Standard Time",
+    "abbreviations": ["ICT"],
+    "displayName": "Indochina Time",
+    "baseOffset": "+07:00",
+    "supportsDst": false,
+    "countries": ["TH"]
+  },
+  "Asia/Ho_Chi_Minh": {
+    "windows": "SE Asia Standard Time",
+    "abbreviations": ["ICT"],
+    "displayName": "Indochina Time (Ho Chi Minh)",
+    "baseOffset": "+07:00",
+    "supportsDst": false,
+    "countries": ["VN"]
+  },
+  "Asia/Jakarta": {
+    "windows": "SE Asia Standard Time",
+    "abbreviations": ["WIB"],
+    "displayName": "Western Indonesia Time",
+    "baseOffset": "+07:00",
+    "supportsDst": false,
+    "countries": ["ID"]
+  },
+  "Asia/Krasnoyarsk": {
+    "windows": "North Asia Standard Time",
+    "abbreviations": ["KRAT"],
+    "displayName": "Krasnoyarsk Time",
+    "baseOffset": "+07:00",
+    "supportsDst": false,
+    "countries": ["RU"]
   },
   "Asia/Shanghai": {
     "windows": "China Standard Time",
@@ -135,6 +831,22 @@
     "supportsDst": false,
     "countries": ["HK"]
   },
+  "Asia/Macau": {
+    "windows": "China Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Macau Time",
+    "baseOffset": "+08:00",
+    "supportsDst": false,
+    "countries": ["MO"]
+  },
+  "Asia/Taipei": {
+    "windows": "Taipei Standard Time",
+    "abbreviations": ["CST"],
+    "displayName": "Taipei Time",
+    "baseOffset": "+08:00",
+    "supportsDst": false,
+    "countries": ["TW"]
+  },
   "Asia/Singapore": {
     "windows": "Singapore Standard Time",
     "abbreviations": ["SGT"],
@@ -143,21 +855,101 @@
     "supportsDst": false,
     "countries": ["SG"]
   },
-  "Asia/Dubai": {
-    "windows": "Arabian Standard Time",
-    "abbreviations": ["GST"],
-    "displayName": "Gulf Standard Time",
-    "baseOffset": "+04:00",
+  "Asia/Kuala_Lumpur": {
+    "windows": "Singapore Standard Time",
+    "abbreviations": ["MYT"],
+    "displayName": "Malaysia Time",
+    "baseOffset": "+08:00",
     "supportsDst": false,
-    "countries": ["AE", "OM"]
+    "countries": ["MY"]
   },
-  "Asia/Kolkata": {
-    "windows": "India Standard Time",
-    "abbreviations": ["IST"],
-    "displayName": "India Standard Time",
-    "baseOffset": "+05:30",
+  "Asia/Manila": {
+    "windows": "Singapore Standard Time",
+    "abbreviations": ["PHT"],
+    "displayName": "Philippine Time",
+    "baseOffset": "+08:00",
     "supportsDst": false,
-    "countries": ["IN"]
+    "countries": ["PH"]
+  },
+  "Asia/Makassar": {
+    "windows": "Singapore Standard Time",
+    "abbreviations": ["WITA"],
+    "displayName": "Central Indonesia Time",
+    "baseOffset": "+08:00",
+    "supportsDst": false,
+    "countries": ["ID"]
+  },
+  "Australia/Perth": {
+    "windows": "W. Australia Standard Time",
+    "abbreviations": ["AWST"],
+    "displayName": "Australian Western Standard Time",
+    "baseOffset": "+08:00",
+    "supportsDst": false,
+    "countries": ["AU"]
+  },
+  "Asia/Irkutsk": {
+    "windows": "North Asia East Standard Time",
+    "abbreviations": ["IRKT"],
+    "displayName": "Irkutsk Time",
+    "baseOffset": "+08:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Asia/Seoul": {
+    "windows": "Korea Standard Time",
+    "abbreviations": ["KST"],
+    "displayName": "Korea Standard Time",
+    "baseOffset": "+09:00",
+    "supportsDst": false,
+    "countries": ["KR"]
+  },
+  "Asia/Tokyo": {
+    "windows": "Tokyo Standard Time",
+    "abbreviations": ["JST"],
+    "displayName": "Japan Standard Time",
+    "baseOffset": "+09:00",
+    "supportsDst": false,
+    "countries": ["JP"]
+  },
+  "Asia/Jayapura": {
+    "windows": "Tokyo Standard Time",
+    "abbreviations": ["WIT"],
+    "displayName": "Eastern Indonesia Time",
+    "baseOffset": "+09:00",
+    "supportsDst": false,
+    "countries": ["ID"]
+  },
+  "Asia/Yakutsk": {
+    "windows": "Yakutsk Standard Time",
+    "abbreviations": ["YAKT"],
+    "displayName": "Yakutsk Time",
+    "baseOffset": "+09:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Australia/Adelaide": {
+    "windows": "Cen. Australia Standard Time",
+    "abbreviations": ["ACST", "ACDT"],
+    "displayName": "Australian Central Standard Time (Adelaide)",
+    "baseOffset": "+09:30",
+    "supportsDst": true,
+    "countries": ["AU"]
+  },
+  "Australia/Darwin": {
+    "windows": "AUS Central Standard Time",
+    "abbreviations": ["ACST"],
+    "displayName": "Australian Central Standard Time (Darwin)",
+    "baseOffset": "+09:30",
+    "supportsDst": false,
+    "countries": ["AU"]
+  },
+  "Australia/Brisbane": {
+    "windows": "E. Australia Standard Time",
+    "abbreviations": ["AEST"],
+    "displayName": "Australian Eastern Standard Time (Brisbane)",
+    "baseOffset": "+10:00",
+    "supportsDst": false,
+    "countries": ["AU"]
   },
   "Australia/Sydney": {
     "windows": "AUS Eastern Standard Time",
@@ -175,6 +967,38 @@
     "supportsDst": true,
     "countries": ["AU"]
   },
+  "Australia/Hobart": {
+    "windows": "Tasmania Standard Time",
+    "abbreviations": ["AEST", "AEDT"],
+    "displayName": "Australian Eastern Time (Hobart)",
+    "baseOffset": "+10:00",
+    "supportsDst": true,
+    "countries": ["AU"]
+  },
+  "Asia/Vladivostok": {
+    "windows": "Vladivostok Standard Time",
+    "abbreviations": ["VLAT"],
+    "displayName": "Vladivostok Time",
+    "baseOffset": "+10:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
+  "Pacific/Guam": {
+    "windows": "West Pacific Standard Time",
+    "abbreviations": ["ChST"],
+    "displayName": "Chamorro Standard Time",
+    "baseOffset": "+10:00",
+    "supportsDst": false,
+    "countries": ["GU"]
+  },
+  "Asia/Magadan": {
+    "windows": "Magadan Standard Time",
+    "abbreviations": ["MAGT"],
+    "displayName": "Magadan Time",
+    "baseOffset": "+11:00",
+    "supportsDst": false,
+    "countries": ["RU"]
+  },
   "Pacific/Auckland": {
     "windows": "New Zealand Standard Time",
     "abbreviations": ["NZST", "NZDT"],
@@ -183,20 +1007,36 @@
     "supportsDst": true,
     "countries": ["NZ"]
   },
-  "America/Sao_Paulo": {
-    "windows": "E. South America Standard Time",
-    "abbreviations": ["BRT", "BRST"],
-    "displayName": "Brasilia Time",
-    "baseOffset": "-03:00",
+  "Pacific/Fiji": {
+    "windows": "Fiji Standard Time",
+    "abbreviations": ["FJT"],
+    "displayName": "Fiji Time",
+    "baseOffset": "+12:00",
     "supportsDst": true,
-    "countries": ["BR"]
+    "countries": ["FJ"]
   },
-  "Africa/Johannesburg": {
-    "windows": "South Africa Standard Time",
-    "abbreviations": ["SAST"],
-    "displayName": "South Africa Standard Time",
-    "baseOffset": "+02:00",
+  "Asia/Kamchatka": {
+    "windows": "Russia Time Zone 11",
+    "abbreviations": ["PETT"],
+    "displayName": "Kamchatka Time",
+    "baseOffset": "+12:00",
     "supportsDst": false,
-    "countries": ["ZA"]
+    "countries": ["RU"]
+  },
+  "Pacific/Chatham": {
+    "windows": "Chatham Islands Standard Time",
+    "abbreviations": ["CHAST", "CHADT"],
+    "displayName": "Chatham Islands Time",
+    "baseOffset": "+12:45",
+    "supportsDst": true,
+    "countries": ["NZ"]
+  },
+  "Pacific/Tongatapu": {
+    "windows": "Tonga Standard Time",
+    "abbreviations": ["TOT"],
+    "displayName": "Tonga Time",
+    "baseOffset": "+13:00",
+    "supportsDst": false,
+    "countries": ["TO"]
   }
 }

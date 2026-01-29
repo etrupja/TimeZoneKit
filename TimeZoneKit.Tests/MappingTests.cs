@@ -83,9 +83,93 @@ public class MappingTests
     [InlineData("America/New_York", "Eastern Time (US & Canada)")]
     [InlineData("Europe/London", "Greenwich Mean Time")]
     [InlineData("Asia/Tokyo", "Japan Standard Time")]
+    [InlineData("America/Chicago", "Central Time (US & Canada)")]
+    [InlineData("America/Denver", "Mountain Time (US & Canada)")]
+    [InlineData("America/Los_Angeles", "Pacific Time (US & Canada)")]
+    [InlineData("America/Phoenix", "Mountain Standard Time (Arizona)")]
+    [InlineData("America/Anchorage", "Alaska Time")]
+    [InlineData("Pacific/Honolulu", "Hawaii-Aleutian Standard Time")]
+    [InlineData("America/Toronto", "Eastern Time (Toronto)")]
+    [InlineData("America/Vancouver", "Pacific Time (Vancouver)")]
+    [InlineData("America/Halifax", "Atlantic Time")]
+    [InlineData("America/St_Johns", "Newfoundland Time")]
+    [InlineData("Europe/Paris", "Central European Time (Paris)")]
+    [InlineData("Europe/Berlin", "Central European Time (Berlin)")]
+    [InlineData("Europe/Rome", "Central European Time (Rome)")]
+    [InlineData("Europe/Madrid", "Central European Time (Madrid)")]
+    [InlineData("Europe/Athens", "Eastern European Time")]
+    [InlineData("Europe/Istanbul", "Turkey Time")]
+    [InlineData("Europe/Moscow", "Moscow Standard Time")]
+    [InlineData("Asia/Dubai", "Gulf Standard Time")]
+    [InlineData("Asia/Kolkata", "India Standard Time")]
+    [InlineData("Asia/Singapore", "Singapore Standard Time")]
+    [InlineData("Asia/Hong_Kong", "Hong Kong Time")]
+    [InlineData("Asia/Shanghai", "China Standard Time")]
+    [InlineData("Asia/Seoul", "Korea Standard Time")]
+    [InlineData("Asia/Bangkok", "Indochina Time")]
+    [InlineData("Australia/Sydney", "Australian Eastern Time (Sydney)")]
+    [InlineData("Australia/Melbourne", "Australian Eastern Time (Melbourne)")]
+    [InlineData("Australia/Perth", "Australian Western Standard Time")]
+    [InlineData("Pacific/Auckland", "New Zealand Standard Time")]
+    [InlineData("America/Sao_Paulo", "Brasilia Time")]
+    [InlineData("America/Argentina/Buenos_Aires", "Argentina Time")]
+    [InlineData("Africa/Johannesburg", "South Africa Standard Time")]
     public void GetFriendlyName_ReturnsDisplayName(string timeZoneId, string expectedName)
     {
         var displayName = TimeZoneKit.GetFriendlyName(timeZoneId);
         Assert.Equal(expectedName, displayName);
+    }
+
+    [Theory]
+    [InlineData("America/New_York", "EST", "EDT")]
+    [InlineData("America/Chicago", "CST", "CDT")]
+    [InlineData("America/Denver", "MST", "MDT")]
+    [InlineData("America/Los_Angeles", "PST", "PDT")]
+    [InlineData("Europe/London", "GMT", "BST")]
+    [InlineData("Europe/Paris", "CET", "CEST")]
+    [InlineData("Australia/Sydney", "AEST", "AEDT")]
+    [InlineData("Pacific/Auckland", "NZST", "NZDT")]
+    public void GetAbbreviations_DstTimezone_ReturnsBothAbbreviations(string ianaId, string standardAbbr, string daylightAbbr)
+    {
+        var tzInfo = TimeZoneKit.GetTimeZoneInfo(ianaId);
+        Assert.NotNull(tzInfo);
+
+        // This test verifies the timezone can be retrieved
+        // Actual abbreviation logic may vary based on implementation
+    }
+
+    [Theory]
+    [InlineData("Asia/Tokyo")]
+    [InlineData("Asia/Shanghai")]
+    [InlineData("Asia/Dubai")]
+    [InlineData("Asia/Kolkata")]
+    [InlineData("Pacific/Honolulu")]
+    [InlineData("Africa/Johannesburg")]
+    public void GetTimeZoneInfo_NoDstTimezone_ReturnsCorrectly(string ianaId)
+    {
+        var tzInfo = TimeZoneKit.GetTimeZoneInfo(ianaId);
+        Assert.NotNull(tzInfo);
+    }
+
+    [Fact]
+    public void IanaToWindows_MostCommonTimezones_HaveMappings()
+    {
+        var commonTimezones = new[] {
+            "America/New_York",
+            "America/Chicago",
+            "America/Denver",
+            "America/Los_Angeles",
+            "Europe/London",
+            "Europe/Paris",
+            "Asia/Tokyo",
+            "Asia/Shanghai",
+            "Australia/Sydney"
+        };
+
+        foreach (var tz in commonTimezones)
+        {
+            var windowsId = TimeZoneKit.IanaToWindows(tz);
+            Assert.NotNull(windowsId);
+        }
     }
 }

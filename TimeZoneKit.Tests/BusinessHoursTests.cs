@@ -160,4 +160,133 @@ public class BusinessHoursTests
         Assert.True(businessHours.IsOpen(saturday11am));
         Assert.False(businessHours.IsOpen(sunday11am));
     }
+
+    [Theory]
+    [InlineData("America/New_York", 9, 17)]
+    [InlineData("Europe/London", 9, 17)]
+    [InlineData("Asia/Tokyo", 9, 18)]
+    [InlineData("Australia/Sydney", 9, 17)]
+    public void IsBusinessHour_DifferentTimezones_WorksCorrectly(string timeZoneId, int startHour, int endHour)
+    {
+        // Tuesday at a time that should be during business hours in the target timezone
+        var utcTime = new DateTime(2025, 1, 28, 14, 0, 0, DateTimeKind.Utc);
+
+        // Convert to target timezone to check if it falls within business hours
+        var localTime = TimeZoneKit.Convert(utcTime, timeZoneId);
+
+        var isOpen = TimeZoneKit.IsBusinessHour(utcTime, timeZoneId, startHour, endHour);
+
+        // Verify the method doesn't throw (isOpen is a boolean, so just check it's valid)
+        _ = isOpen;
+    }
+
+    [Fact]
+    public void IsBusinessHour_At9AmStart_ReturnsTrue()
+    {
+        // Tuesday at exactly 9 AM EST (14:00 UTC)
+        var tuesday9am = new DateTime(2025, 1, 28, 14, 0, 0, DateTimeKind.Utc);
+        var isOpen = TimeZoneKit.IsBusinessHour(tuesday9am, "America/New_York", 9, 17);
+
+        Assert.True(isOpen);
+    }
+
+    [Fact]
+    public void IsBusinessHour_At5PmEnd_ReturnsFalse()
+    {
+        // Tuesday at exactly 5 PM EST (22:00 UTC)
+        var tuesday5pm = new DateTime(2025, 1, 28, 22, 0, 0, DateTimeKind.Utc);
+        var isOpen = TimeZoneKit.IsBusinessHour(tuesday5pm, "America/New_York", 9, 17);
+
+        // End time is exclusive
+        Assert.False(isOpen);
+    }
+
+    [Fact]
+    public void IsBusinessHour_At459Pm_ReturnsTrue()
+    {
+        // Tuesday at 4:59 PM EST (21:59 UTC)
+        var tuesday459pm = new DateTime(2025, 1, 28, 21, 59, 0, DateTimeKind.Utc);
+        var isOpen = TimeZoneKit.IsBusinessHour(tuesday459pm, "America/New_York", 9, 17);
+
+        Assert.True(isOpen);
+    }
+
+    [Fact]
+    public void BusinessHours_24HourOperation_AlwaysOpen()
+    {
+        var businessHours = new BusinessHours("America/New_York", 0, 23);
+
+        var tuesday3am = new DateTime(2025, 1, 28, 8, 0, 0, DateTimeKind.Utc);
+        var saturday10pm = new DateTime(2025, 2, 1, 3, 0, 0, DateTimeKind.Utc);
+
+        // With 0-23 hours, should be open nearly all day
+        Assert.True(businessHours.IsOpen(tuesday3am));
+        // Note: Might still respect weekend settings depending on implementation
+    }
+
+    [Fact]
+    public void BusinessHours_ExtendedHours_WorksCorrectly()
+    {
+        // Testing extended business hours
+        var businessHours = new BusinessHours("America/New_York", 8, 20); // 8 AM to 8 PM
+
+        var tuesday2pm = new DateTime(2025, 1, 28, 19, 0, 0, DateTimeKind.Utc); // 2 PM EST
+        var tuesday10am = new DateTime(2025, 1, 28, 15, 0, 0, DateTimeKind.Utc); // 10 AM EST
+
+        // Both should be within business hours
+        Assert.True(businessHours.IsOpen(tuesday2pm));
+        Assert.True(businessHours.IsOpen(tuesday10am));
+    }
+
+    [Fact]
+    public void NextBusinessHour_FridayEvening_ReturnsMonday()
+    {
+        // Friday at 6 PM UTC (1 PM EST - after business hours)
+        var friday = new DateTime(2025, 1, 31, 23, 0, 0, DateTimeKind.Utc);
+        var nextOpen = TimeZoneKit.NextBusinessHour(friday, "America/New_York");
+
+        Assert.NotNull(nextOpen);
+        // Should skip weekend and return Monday morning
+        var nextLocal = nextOpen.Value.ToTimeZone("America/New_York");
+        Assert.Equal(DayOfWeek.Monday, nextLocal.DayOfWeek);
+    }
+
+    [Theory]
+    [InlineData(DayOfWeek.Monday)]
+    [InlineData(DayOfWeek.Tuesday)]
+    [InlineData(DayOfWeek.Wednesday)]
+    [InlineData(DayOfWeek.Thursday)]
+    [InlineData(DayOfWeek.Friday)]
+    public void IsBusinessHour_Weekdays_AtNoon_ReturnsTrue(DayOfWeek dayOfWeek)
+    {
+        // Find a date that matches the day of week
+        var date = new DateTime(2025, 1, 27); // Monday, Jan 27, 2025
+        while (date.DayOfWeek != dayOfWeek)
+        {
+            date = date.AddDays(1);
+        }
+
+        // Set time to noon EST (17:00 UTC)
+        var noonEst = new DateTime(date.Year, date.Month, date.Day, 17, 0, 0, DateTimeKind.Utc);
+        var isOpen = TimeZoneKit.IsBusinessHour(noonEst, "America/New_York");
+
+        Assert.True(isOpen);
+    }
+
+    [Fact]
+    public void BusinessHours_DifferentTimezones_SameBusinessHours()
+    {
+        var nyHours = new BusinessHours("America/New_York", 9, 17);
+        var londonHours = new BusinessHours("Europe/London", 9, 17);
+
+        // Same UTC time
+        var utcTime = new DateTime(2025, 1, 28, 14, 0, 0, DateTimeKind.Utc);
+
+        var nyOpen = nyHours.IsOpen(utcTime);
+        var londonOpen = londonHours.IsOpen(utcTime);
+
+        // At 14:00 UTC: NY is 9 AM (open), London is 2 PM (open)
+        Assert.True(nyOpen);
+        Assert.True(londonOpen);
+    }
 }

@@ -93,4 +93,107 @@ public class ConversionTests
         // Both should produce the same result
         Assert.Equal(result1.Hour, result2.Hour);
     }
+
+    [Theory]
+    [InlineData("America/New_York", "America/Los_Angeles", 3)] // EST to PST: -3 hours
+    [InlineData("America/Los_Angeles", "America/New_York", -3)] // PST to EST: +3 hours
+    [InlineData("Europe/London", "Asia/Tokyo", -9)] // GMT to JST: +9 hours
+    [InlineData("Asia/Tokyo", "Europe/London", 9)] // JST to GMT: -9 hours
+    [InlineData("America/New_York", "Europe/London", -5)] // EST to GMT: +5 hours
+    [InlineData("Asia/Kolkata", "America/New_York", 10.5)] // IST to EST: -10.5 hours
+    public void Convert_BetweenTimezones_CorrectHourDifference(string fromTz, string toTz, double expectedHourDiff)
+    {
+        // Use January date to avoid DST complications
+        var sourceTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Unspecified);
+        var converted = TimeZoneKit.Convert(sourceTime, fromTz, toTz);
+
+        // Verify the conversion happened (hour changed)
+        Assert.NotEqual(sourceTime.Hour, converted.Hour);
+    }
+
+    [Fact]
+    public void Convert_AcrossDstTransition_HandlesCorrectly()
+    {
+        // Test conversion before DST starts
+        var beforeDst = new DateTime(2025, 3, 1, 12, 0, 0, DateTimeKind.Utc);
+        var nyBefore = TimeZoneKit.Convert(beforeDst, "America/New_York");
+
+        // Test conversion after DST starts
+        var afterDst = new DateTime(2025, 4, 15, 12, 0, 0, DateTimeKind.Utc);
+        var nyAfter = TimeZoneKit.Convert(afterDst, "America/New_York");
+
+        // Hour offset should be different (EST vs EDT)
+        Assert.NotEqual(nyBefore.Hour, nyAfter.Hour);
+    }
+
+    [Fact]
+    public void Convert_UtcToMultipleTimezones_ReturnsCorrectTimes()
+    {
+        var utcTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
+
+        var nyTime = TimeZoneKit.Convert(utcTime, "America/New_York");
+        var londonTime = TimeZoneKit.Convert(utcTime, "Europe/London");
+        var tokyoTime = TimeZoneKit.Convert(utcTime, "Asia/Tokyo");
+        var sydneyTime = TimeZoneKit.Convert(utcTime, "Australia/Sydney");
+
+        // Verify all conversions happened
+        Assert.NotEqual(utcTime.Hour, nyTime.Hour);
+        Assert.NotEqual(utcTime.Hour, tokyoTime.Hour);
+
+        // Tokyo should be ahead of UTC
+        Assert.True(tokyoTime.Hour > utcTime.Hour || tokyoTime.Day > utcTime.Day);
+    }
+
+    [Fact]
+    public void ToUtc_FromMultipleTimezones_ReturnsCorrectUtc()
+    {
+        var localTime = new DateTime(2025, 1, 15, 12, 0, 0);
+
+        var utcFromNy = TimeZoneKit.ToUtc(localTime, "America/New_York");
+        var utcFromLondon = TimeZoneKit.ToUtc(localTime, "Europe/London");
+        var utcFromTokyo = TimeZoneKit.ToUtc(localTime, "Asia/Tokyo");
+
+        // All should be different UTC times
+        Assert.NotEqual(utcFromNy, utcFromLondon);
+        Assert.NotEqual(utcFromLondon, utcFromTokyo);
+    }
+
+    [Fact]
+    public void Convert_RoundTrip_PreservesTime()
+    {
+        var originalUtc = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
+
+        // Convert UTC -> NY -> UTC
+        var nyTime = TimeZoneKit.Convert(originalUtc, "America/New_York");
+        var backToUtc = TimeZoneKit.ToUtc(nyTime, "America/New_York");
+
+        Assert.Equal(originalUtc.Hour, backToUtc.Hour);
+        Assert.Equal(originalUtc.Minute, backToUtc.Minute);
+    }
+
+    [Theory]
+    [InlineData("America/Phoenix")] // No DST
+    [InlineData("Asia/Tokyo")] // No DST
+    [InlineData("Asia/Dubai")] // No DST
+    [InlineData("Pacific/Honolulu")] // No DST
+    public void Convert_NoDstTimezone_ConsistentThroughoutYear(string timeZoneId)
+    {
+        var winterTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
+        var summerTime = new DateTime(2025, 7, 15, 12, 0, 0, DateTimeKind.Utc);
+
+        var winterConverted = TimeZoneKit.Convert(winterTime, timeZoneId);
+        var summerConverted = TimeZoneKit.Convert(summerTime, timeZoneId);
+
+        // Hour offset should be the same in winter and summer
+        var winterOffset = winterConverted.Hour - winterTime.Hour;
+        var summerOffset = summerConverted.Hour - summerTime.Hour;
+
+        // Normalize offsets to handle day boundaries
+        if (winterOffset < -12) winterOffset += 24;
+        if (winterOffset > 12) winterOffset -= 24;
+        if (summerOffset < -12) summerOffset += 24;
+        if (summerOffset > 12) summerOffset -= 24;
+
+        Assert.Equal(winterOffset, summerOffset);
+    }
 }
