@@ -9,7 +9,7 @@
 
         <!-- NuGet Package Metadata -->
         <PackageId>TimeZoneKit</PackageId>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <Authors>Ervis Trupja</Authors>
         <Company>Ervis Trupja</Company>
         <Description>A simple, intuitive timezone library for .NET with localization, geographic lookup, and business hours support. Easier than NodaTime, more powerful than TimeZoneConverter.</Description>
