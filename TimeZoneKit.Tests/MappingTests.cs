@@ -1,3 +1,5 @@
+using TimeZoneKit.Methods;
+
 namespace TimeZoneKit.Tests;
 
 public class MappingTests
@@ -10,7 +12,7 @@ public class MappingTests
     [InlineData("Asia/Tokyo", "Tokyo Standard Time")]
     public void IanaToWindows_ReturnsCorrectMapping(string ianaId, string expectedWindowsId)
     {
-        var windowsId = TimeZoneKit.IanaToWindows(ianaId);
+        var windowsId = TimeZoneHelper.IanaToWindows(ianaId);
         Assert.Equal(expectedWindowsId, windowsId);
     }
 
@@ -22,34 +24,34 @@ public class MappingTests
     [InlineData("Tokyo Standard Time", "Asia/Tokyo")]
     public void WindowsToIana_ReturnsCorrectMapping(string windowsId, string expectedIanaId)
     {
-        var ianaId = TimeZoneKit.WindowsToIana(windowsId);
+        var ianaId = TimeZoneHelper.WindowsToIana(windowsId);
         Assert.Equal(expectedIanaId, ianaId);
     }
 
     [Fact]
     public void IanaToWindows_InvalidId_ReturnsNull()
     {
-        var result = TimeZoneKit.IanaToWindows("Invalid/Zone");
+        var result = TimeZoneHelper.IanaToWindows("Invalid/Zone");
         Assert.Null(result);
     }
 
     [Fact]
     public void WindowsToIana_InvalidId_ReturnsNull()
     {
-        var result = TimeZoneKit.WindowsToIana("Invalid Zone");
+        var result = TimeZoneHelper.WindowsToIana("Invalid Zone");
         Assert.Null(result);
     }
 
     [Fact]
     public void IanaToWindows_NullInput_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => TimeZoneKit.IanaToWindows(null!));
+        Assert.Throws<ArgumentNullException>(() => TimeZoneHelper.IanaToWindows(null!));
     }
 
     [Fact]
     public void WindowsToIana_NullInput_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => TimeZoneKit.WindowsToIana(null!));
+        Assert.Throws<ArgumentNullException>(() => TimeZoneHelper.WindowsToIana(null!));
     }
 
     [Theory]
@@ -59,7 +61,7 @@ public class MappingTests
     [InlineData("Asia/Tokyo")]
     public void GetTimeZoneInfo_IanaId_ReturnsTimeZoneInfo(string ianaId)
     {
-        var tzInfo = TimeZoneKit.GetTimeZoneInfo(ianaId);
+        var tzInfo = TimeZoneHelper.GetTimeZoneInfo(ianaId);
         Assert.NotNull(tzInfo);
     }
 
@@ -69,14 +71,14 @@ public class MappingTests
     [InlineData("GMT Standard Time")]
     public void GetTimeZoneInfo_WindowsId_ReturnsTimeZoneInfo(string windowsId)
     {
-        var tzInfo = TimeZoneKit.GetTimeZoneInfo(windowsId);
+        var tzInfo = TimeZoneHelper.GetTimeZoneInfo(windowsId);
         Assert.NotNull(tzInfo);
     }
 
     [Fact]
     public void GetTimeZoneInfo_InvalidId_ThrowsTimeZoneNotFoundException()
     {
-        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneKit.GetTimeZoneInfo("Invalid/Zone"));
+        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneHelper.GetTimeZoneInfo("Invalid/Zone"));
     }
 
     [Theory]
@@ -116,7 +118,7 @@ public class MappingTests
     [InlineData("Africa/Johannesburg", "South Africa Standard Time")]
     public void GetFriendlyName_ReturnsDisplayName(string timeZoneId, string expectedName)
     {
-        var displayName = TimeZoneKit.GetFriendlyName(timeZoneId);
+        var displayName = TimeZoneHelper.GetFriendlyName(timeZoneId);
         Assert.Equal(expectedName, displayName);
     }
 
@@ -131,7 +133,7 @@ public class MappingTests
     [InlineData("Pacific/Auckland", "NZST", "NZDT")]
     public void GetAbbreviations_DstTimezone_ReturnsBothAbbreviations(string ianaId, string standardAbbr, string daylightAbbr)
     {
-        var tzInfo = TimeZoneKit.GetTimeZoneInfo(ianaId);
+        var tzInfo = TimeZoneHelper.GetTimeZoneInfo(ianaId);
         Assert.NotNull(tzInfo);
 
         // This test verifies the timezone can be retrieved
@@ -147,7 +149,7 @@ public class MappingTests
     [InlineData("Africa/Johannesburg")]
     public void GetTimeZoneInfo_NoDstTimezone_ReturnsCorrectly(string ianaId)
     {
-        var tzInfo = TimeZoneKit.GetTimeZoneInfo(ianaId);
+        var tzInfo = TimeZoneHelper.GetTimeZoneInfo(ianaId);
         Assert.NotNull(tzInfo);
     }
 
@@ -168,7 +170,7 @@ public class MappingTests
 
         foreach (var tz in commonTimezones)
         {
-            var windowsId = TimeZoneKit.IanaToWindows(tz);
+            var windowsId = TimeZoneHelper.IanaToWindows(tz);
             Assert.NotNull(windowsId);
         }
     }

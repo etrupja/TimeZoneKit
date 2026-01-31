@@ -3,12 +3,12 @@ using TimeZoneKit.Core;
 using TimeZoneKit.Geographic;
 using TimeZoneKit.Models;
 
-namespace TimeZoneKit;
+namespace TimeZoneKit.Methods;
 
 /// <summary>
-/// Main entry point for TimeZoneKit library providing simple timezone conversion and lookup functionality.
+/// Static helper methods for DateTime timezone operations.
 /// </summary>
-public static class TimeZoneKit
+public static class TimeZoneHelper
 {
     /// <summary>
     /// Converts a DateTime from one timezone to another.
@@ -21,7 +21,7 @@ public static class TimeZoneKit
     /// <example>
     /// <code>
     /// var utcTime = new DateTime(2025, 1, 28, 15, 0, 0, DateTimeKind.Utc);
-    /// var nyTime = TimeZoneKit.Convert(utcTime, "America/New_York");
+    /// var nyTime = DateTimeExtensions.Convert(utcTime, "America/New_York");
     /// </code>
     /// </example>
     public static DateTime Convert(DateTime dateTime, string toTimeZoneId)
@@ -64,7 +64,7 @@ public static class TimeZoneKit
     /// <example>
     /// <code>
     /// var localTime = new DateTime(2025, 1, 28, 10, 0, 0);
-    /// var tokyoTime = TimeZoneKit.Convert(localTime, "America/New_York", "Asia/Tokyo");
+    /// var tokyoTime = DateTimeExtensions.Convert(localTime, "America/New_York", "Asia/Tokyo");
     /// </code>
     /// </example>
     public static DateTime Convert(DateTime dateTime, string fromTimeZoneId, string toTimeZoneId)
@@ -85,6 +85,45 @@ public static class TimeZoneKit
     }
 
     /// <summary>
+    /// Converts the DateTime to the specified timezone.
+    /// </summary>
+    /// <param name="dateTime">The DateTime to convert.</param>
+    /// <param name="timeZoneId">Target timezone ID (IANA or Windows).</param>
+    /// <returns>Converted DateTime in the target timezone.</returns>
+    /// <exception cref="TimeZoneNotFoundException">Thrown when timezone ID is invalid.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
+    /// <example>
+    /// <code>
+    /// var utcTime = DateTime.UtcNow;
+    /// var nyTime = DateTimeExtensions.ToTimeZone(utcTime, "America/New_York");
+    /// </code>
+    /// </example>
+    public static DateTime ToTimeZone(DateTime dateTime, string timeZoneId)
+    {
+        return Convert(dateTime, timeZoneId);
+    }
+
+    /// <summary>
+    /// Converts the DateTime from a source timezone to a target timezone.
+    /// </summary>
+    /// <param name="dateTime">The DateTime to convert.</param>
+    /// <param name="fromTimeZoneId">Source timezone ID (IANA or Windows).</param>
+    /// <param name="toTimeZoneId">Target timezone ID (IANA or Windows).</param>
+    /// <returns>Converted DateTime in the target timezone.</returns>
+    /// <exception cref="TimeZoneNotFoundException">Thrown when either timezone ID is invalid.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when any timezone ID is null.</exception>
+    /// <example>
+    /// <code>
+    /// var localTime = new DateTime(2025, 1, 28, 10, 0, 0);
+    /// var tokyoTime = DateTimeExtensions.ToTimeZone(localTime, "America/New_York", "Asia/Tokyo");
+    /// </code>
+    /// </example>
+    public static DateTime ToTimeZone(DateTime dateTime, string fromTimeZoneId, string toTimeZoneId)
+    {
+        return Convert(dateTime, fromTimeZoneId, toTimeZoneId);
+    }
+
+    /// <summary>
     /// Converts a local DateTime to UTC.
     /// </summary>
     /// <param name="localTime">The local DateTime to convert.</param>
@@ -95,7 +134,7 @@ public static class TimeZoneKit
     /// <example>
     /// <code>
     /// var localTime = new DateTime(2025, 1, 28, 10, 0, 0);
-    /// var utcTime = TimeZoneKit.ToUtc(localTime, "America/New_York");
+    /// var utcTime = DateTimeExtensions.ToUtc(localTime, "America/New_York");
     /// </code>
     /// </example>
     public static DateTime ToUtc(DateTime localTime, string timeZoneId)
@@ -118,7 +157,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var tzInfo = TimeZoneKit.GetTimeZoneInfo("America/New_York");
+    /// var tzInfo = DateTimeExtensions.GetTimeZoneInfo("America/New_York");
     /// Console.WriteLine(tzInfo.DisplayName);
     /// </code>
     /// </example>
@@ -140,7 +179,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when ianaId is null.</exception>
     /// <example>
     /// <code>
-    /// var windowsId = TimeZoneKit.IanaToWindows("America/New_York");
+    /// var windowsId = DateTimeExtensions.IanaToWindows("America/New_York");
     /// // Returns: "Eastern Standard Time"
     /// </code>
     /// </example>
@@ -162,7 +201,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when windowsId is null.</exception>
     /// <example>
     /// <code>
-    /// var ianaId = TimeZoneKit.WindowsToIana("Eastern Standard Time");
+    /// var ianaId = DateTimeExtensions.WindowsToIana("Eastern Standard Time");
     /// // Returns: "America/New_York"
     /// </code>
     /// </example>
@@ -186,7 +225,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var offset = TimeZoneKit.GetOffsetAt("America/New_York", DateTime.Now);
+    /// var offset = DateTimeExtensions.GetOffsetAt("America/New_York", DateTime.Now);
     /// Console.WriteLine($"Offset: {offset.TotalHours} hours");
     /// </code>
     /// </example>
@@ -202,6 +241,25 @@ public static class TimeZoneKit
     }
 
     /// <summary>
+    /// Gets the UTC offset for the DateTime in the specified timezone.
+    /// </summary>
+    /// <param name="dateTime">The DateTime to check.</param>
+    /// <param name="timeZoneId">The timezone ID (IANA or Windows).</param>
+    /// <returns>The UTC offset as a TimeSpan.</returns>
+    /// <exception cref="TimeZoneNotFoundException">Thrown when timezone ID is invalid.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
+    /// <example>
+    /// <code>
+    /// var offset = DateTimeExtensions.GetOffset(DateTime.Now, "America/New_York");
+    /// Console.WriteLine($"Current offset: {offset.TotalHours} hours");
+    /// </code>
+    /// </example>
+    public static TimeSpan GetOffset(DateTime dateTime, string timeZoneId)
+    {
+        return GetOffsetAt(timeZoneId, dateTime);
+    }
+
+    /// <summary>
     /// Determines whether the specified timezone supports daylight saving time.
     /// </summary>
     /// <param name="timeZoneId">The timezone identifier (supports IANA or Windows IDs).</param>
@@ -210,7 +268,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var hasDst = TimeZoneKit.SupportsDst("America/New_York");
+    /// var hasDst = DateTimeExtensions.SupportsDst("America/New_York");
     /// // Returns: true
     /// </code>
     /// </example>
@@ -255,7 +313,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var isDst = TimeZoneKit.IsDaylightSavingTime("America/New_York", DateTime.Now);
+    /// var isDst = DateTimeExtensions.IsDaylightSavingTime("America/New_York", DateTime.Now);
     /// </code>
     /// </example>
     public static bool IsDaylightSavingTime(string timeZoneId, DateTime dateTime)
@@ -270,12 +328,30 @@ public static class TimeZoneKit
     }
 
     /// <summary>
+    /// Determines whether the DateTime is in daylight saving time for the specified timezone.
+    /// </summary>
+    /// <param name="dateTime">The DateTime to check.</param>
+    /// <param name="timeZoneId">The timezone ID (IANA or Windows).</param>
+    /// <returns>True if in DST; otherwise, false.</returns>
+    /// <exception cref="TimeZoneNotFoundException">Thrown when timezone ID is invalid.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
+    /// <example>
+    /// <code>
+    /// var isDst = DateTimeExtensions.IsDaylightSavingTime(DateTime.Now, "America/New_York");
+    /// </code>
+    /// </example>
+    public static bool IsDaylightSavingTime(DateTime dateTime, string timeZoneId)
+    {
+        return IsDaylightSavingTime(timeZoneId, dateTime);
+    }
+
+    /// <summary>
     /// Gets a list of common timezones suitable for dropdown lists.
     /// </summary>
     /// <returns>An array of commonly used IANA timezone IDs.</returns>
     /// <example>
     /// <code>
-    /// var commonZones = TimeZoneKit.GetCommonTimezones();
+    /// var commonZones = DateTimeExtensions.GetCommonTimezones();
     /// foreach (var zone in commonZones)
     /// {
     ///     Console.WriteLine(zone);
@@ -296,7 +372,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var displayName = TimeZoneKit.GetFriendlyName("America/New_York");
+    /// var displayName = DateTimeExtensions.GetFriendlyName("America/New_York");
     /// // Returns: "Eastern Time (US &amp; Canada)"
     /// </code>
     /// </example>
@@ -326,10 +402,10 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentException">Thrown when input is null or empty.</exception>
     /// <example>
     /// <code>
-    /// var tz1 = TimeZoneKit.Parse("EST");              // Abbreviation
-    /// var tz2 = TimeZoneKit.Parse("New York");         // City name
-    /// var tz3 = TimeZoneKit.Parse("GMT-5");            // Offset
-    /// var tz4 = TimeZoneKit.Parse("America/New_York"); // IANA ID
+    /// var tz1 = DateTimeExtensions.Parse("EST");              // Abbreviation
+    /// var tz2 = DateTimeExtensions.Parse("New York");         // City name
+    /// var tz3 = DateTimeExtensions.Parse("GMT-5");            // Offset
+    /// var tz4 = DateTimeExtensions.Parse("America/New_York"); // IANA ID
     /// </code>
     /// </example>
     public static TimeZoneInfo Parse(string input)
@@ -346,7 +422,7 @@ public static class TimeZoneKit
     /// <returns>True if parsing succeeded; otherwise, false.</returns>
     /// <example>
     /// <code>
-    /// if (TimeZoneKit.TryParse("EST", out var tzInfo))
+    /// if (DateTimeExtensions.TryParse("EST", out var tzInfo))
     /// {
     ///     Console.WriteLine($"Parsed: {tzInfo.DisplayName}");
     /// }
@@ -379,7 +455,7 @@ public static class TimeZoneKit
     /// <returns>List of matching IANA timezone IDs.</returns>
     /// <example>
     /// <code>
-    /// var results = TimeZoneKit.Search("eastern");
+    /// var results = DateTimeExtensions.Search("eastern");
     /// // Returns: ["America/New_York", "America/Detroit", ...]
     /// </code>
     /// </example>
@@ -397,7 +473,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentException">Thrown when cityName is null or empty.</exception>
     /// <example>
     /// <code>
-    /// var londonTz = TimeZoneKit.FromCity("London");
+    /// var londonTz = DateTimeExtensions.FromCity("London");
     /// Console.WriteLine(londonTz.Id); // "Europe/London"
     /// </code>
     /// </example>
@@ -415,7 +491,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentException">Thrown when the country code is not found or invalid.</exception>
     /// <example>
     /// <code>
-    /// var usTimezones = TimeZoneKit.GetByCountry("US");
+    /// var usTimezones = DateTimeExtensions.GetByCountry("US");
     /// // Returns: ["America/New_York", "America/Chicago", ...]
     /// </code>
     /// </example>
@@ -431,7 +507,7 @@ public static class TimeZoneKit
     /// <returns>List of IANA timezone IDs with the specified base offset.</returns>
     /// <example>
     /// <code>
-    /// var zones = TimeZoneKit.GetByOffset(TimeSpan.FromHours(-5));
+    /// var zones = DateTimeExtensions.GetByOffset(TimeSpan.FromHours(-5));
     /// // Returns timezones with UTC-5 base offset
     /// </code>
     /// </example>
@@ -468,7 +544,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var isOpen = TimeZoneKit.IsBusinessHour(DateTime.UtcNow, "America/New_York");
+    /// var isOpen = DateTimeExtensions.IsBusinessHour(DateTime.UtcNow, "America/New_York");
     /// </code>
     /// </example>
     public static bool IsBusinessHour(DateTime dateTime, string timeZoneId, int startHour = 9, int endHour = 17)
@@ -493,7 +569,7 @@ public static class TimeZoneKit
     /// <exception cref="ArgumentNullException">Thrown when timeZoneId is null.</exception>
     /// <example>
     /// <code>
-    /// var nextOpen = TimeZoneKit.NextBusinessHour(DateTime.UtcNow, "America/New_York");
+    /// var nextOpen = DateTimeExtensions.NextBusinessHour(DateTime.UtcNow, "America/New_York");
     /// </code>
     /// </example>
     public static DateTime? NextBusinessHour(DateTime dateTime, string timeZoneId, int startHour = 9, int endHour = 17)
@@ -518,7 +594,7 @@ public static class TimeZoneKit
     /// <exception cref="TimeZoneNotFoundException">Thrown when any timezone ID is invalid.</exception>
     /// <example>
     /// <code>
-    /// var slots = TimeZoneKit.FindMeetingTime(
+    /// var slots = DateTimeExtensions.FindMeetingTime(
     ///     new[] { "America/New_York", "Europe/London", "Asia/Tokyo" },
     ///     new TimeRange(9, 17),
     ///     DateTime.Today
@@ -561,7 +637,7 @@ public static class TimeZoneKit
     ///     new BusinessHours("Asia/Tokyo", 9, 17)
     /// };
     ///
-    /// var slots = TimeZoneKit.FindMeetingTime(businessHours, DateTime.Today);
+    /// var slots = DateTimeExtensions.FindMeetingTime(businessHours, DateTime.Today);
     /// </code>
     /// </example>
     public static List<MeetingSlot> FindMeetingTime(BusinessHours[] businessHours, DateTime date)

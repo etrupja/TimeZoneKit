@@ -1,4 +1,4 @@
-using TimeZoneKit.Extensions;
+using TimeZoneKit.Methods;
 
 namespace TimeZoneKit.Tests;
 
@@ -14,7 +14,7 @@ public class DstTests
     [InlineData("Asia/Dubai", false)]
     public void SupportsDst_ReturnsCorrectValue(string timeZoneId, bool expectedSupportsDst)
     {
-        var supportsDst = TimeZoneKit.SupportsDst(timeZoneId);
+        var supportsDst = TimeZoneHelper.SupportsDst(timeZoneId);
         Assert.Equal(expectedSupportsDst, supportsDst);
     }
 
@@ -22,7 +22,7 @@ public class DstTests
     public void IsDaylightSavingTime_WinterTime_ReturnsFalse()
     {
         var winterTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
-        var isDst = TimeZoneKit.IsDaylightSavingTime("America/New_York", winterTime);
+        var isDst = TimeZoneHelper.IsDaylightSavingTime("America/New_York", winterTime);
         Assert.False(isDst);
     }
 
@@ -30,7 +30,7 @@ public class DstTests
     public void IsDaylightSavingTime_SummerTime_ReturnsTrue()
     {
         var summerTime = new DateTime(2025, 7, 15, 12, 0, 0, DateTimeKind.Utc);
-        var isDst = TimeZoneKit.IsDaylightSavingTime("America/New_York", summerTime);
+        var isDst = TimeZoneHelper.IsDaylightSavingTime("America/New_York", summerTime);
         Assert.True(isDst);
     }
 
@@ -38,7 +38,7 @@ public class DstTests
     public void GetOffsetAt_WinterTime_ReturnsCorrectOffset()
     {
         var winterTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
-        var offset = TimeZoneKit.GetOffsetAt("America/New_York", winterTime);
+        var offset = TimeZoneHelper.GetOffsetAt("America/New_York", winterTime);
         Assert.Equal(-5, offset.TotalHours); // EST is UTC-5
     }
 
@@ -46,30 +46,30 @@ public class DstTests
     public void GetOffsetAt_SummerTime_ReturnsCorrectOffset()
     {
         var summerTime = new DateTime(2025, 7, 15, 12, 0, 0, DateTimeKind.Utc);
-        var offset = TimeZoneKit.GetOffsetAt("America/New_York", summerTime);
+        var offset = TimeZoneHelper.GetOffsetAt("America/New_York", summerTime);
         Assert.Equal(-4, offset.TotalHours); // EDT is UTC-4
     }
 
     [Fact]
-    public void GetOffset_ExtensionMethod_WorksCorrectly()
+    public void GetOffset_StaticMethod_WorksCorrectly()
     {
         var dateTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
-        var offset = dateTime.GetOffset("America/New_York");
+        var offset = TimeZoneHelper.GetOffset(dateTime, "America/New_York");
         Assert.Equal(-5, offset.TotalHours);
     }
 
     [Fact]
-    public void IsDaylightSavingTime_ExtensionMethod_WorksCorrectly()
+    public void IsDaylightSavingTime_StaticMethod_WorksCorrectly()
     {
         var winterTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
-        var isDst = winterTime.IsDaylightSavingTime("America/New_York");
+        var isDst = TimeZoneHelper.IsDaylightSavingTime(winterTime, "America/New_York");
         Assert.False(isDst);
     }
 
     [Fact]
     public void SupportsDst_NullInput_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => TimeZoneKit.SupportsDst(null!));
+        Assert.Throws<ArgumentNullException>(() => TimeZoneHelper.SupportsDst(null!));
     }
 
     [Theory]
@@ -79,7 +79,7 @@ public class DstTests
     public void GetOffsetAt_NoDestZones_ReturnsStaticOffset(string timeZoneId, int expectedHours)
     {
         var dateTime = DateTime.UtcNow;
-        var offset = TimeZoneKit.GetOffsetAt(timeZoneId, dateTime);
+        var offset = TimeZoneHelper.GetOffsetAt(timeZoneId, dateTime);
         Assert.Equal(expectedHours, offset.TotalHours);
     }
 
@@ -93,7 +93,7 @@ public class DstTests
     [InlineData("Pacific/Auckland")] // NZST/NZDT
     public void SupportsDst_DstTimezones_ReturnsTrue(string timeZoneId)
     {
-        var supportsDst = TimeZoneKit.SupportsDst(timeZoneId);
+        var supportsDst = TimeZoneHelper.SupportsDst(timeZoneId);
         Assert.True(supportsDst);
     }
 
@@ -110,7 +110,7 @@ public class DstTests
     [InlineData("Asia/Seoul")]
     public void SupportsDst_NoDstTimezones_ReturnsFalse(string timeZoneId)
     {
-        var supportsDst = TimeZoneKit.SupportsDst(timeZoneId);
+        var supportsDst = TimeZoneHelper.SupportsDst(timeZoneId);
         Assert.False(supportsDst);
     }
 
@@ -124,7 +124,7 @@ public class DstTests
     public void IsDaylightSavingTime_WinterMonths_ReturnsFalse(string timeZoneId, string dateStr)
     {
         var date = DateTime.Parse(dateStr).ToUniversalTime();
-        var isDst = TimeZoneKit.IsDaylightSavingTime(timeZoneId, date);
+        var isDst = TimeZoneHelper.IsDaylightSavingTime(timeZoneId, date);
         Assert.False(isDst);
     }
 
@@ -138,7 +138,7 @@ public class DstTests
     public void IsDaylightSavingTime_SummerMonths_ReturnsTrue(string timeZoneId, string dateStr)
     {
         var date = DateTime.Parse(dateStr).ToUniversalTime();
-        var isDst = TimeZoneKit.IsDaylightSavingTime(timeZoneId, date);
+        var isDst = TimeZoneHelper.IsDaylightSavingTime(timeZoneId, date);
         Assert.True(isDst);
     }
 
@@ -148,8 +148,8 @@ public class DstTests
         var winter = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
         var summer = new DateTime(2025, 7, 15, 12, 0, 0, DateTimeKind.Utc);
 
-        var winterOffset = TimeZoneKit.GetOffsetAt("America/New_York", winter);
-        var summerOffset = TimeZoneKit.GetOffsetAt("America/New_York", summer);
+        var winterOffset = TimeZoneHelper.GetOffsetAt("America/New_York", winter);
+        var summerOffset = TimeZoneHelper.GetOffsetAt("America/New_York", summer);
 
         // Winter should be -5 (EST), Summer should be -4 (EDT)
         Assert.Equal(-5, winterOffset.TotalHours);
@@ -163,8 +163,8 @@ public class DstTests
         var australianWinter = new DateTime(2025, 6, 15, 12, 0, 0, DateTimeKind.Utc);
         var australianSummer = new DateTime(2025, 12, 15, 12, 0, 0, DateTimeKind.Utc);
 
-        var winterOffset = TimeZoneKit.GetOffsetAt("Australia/Sydney", australianWinter);
-        var summerOffset = TimeZoneKit.GetOffsetAt("Australia/Sydney", australianSummer);
+        var winterOffset = TimeZoneHelper.GetOffsetAt("Australia/Sydney", australianWinter);
+        var summerOffset = TimeZoneHelper.GetOffsetAt("Australia/Sydney", australianSummer);
 
         // Summer offset should be greater (AEDT vs AEST)
         Assert.True(summerOffset.TotalHours > winterOffset.TotalHours);
@@ -178,7 +178,7 @@ public class DstTests
     public void GetOffsetAt_NonStandardOffsets_ReturnsCorrectly(string timeZoneId, double expectedHours)
     {
         var winterTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
-        var offset = TimeZoneKit.GetOffsetAt(timeZoneId, winterTime);
+        var offset = TimeZoneHelper.GetOffsetAt(timeZoneId, winterTime);
 
         Assert.Equal(expectedHours, offset.TotalHours);
     }

@@ -1,3 +1,5 @@
+using TimeZoneKit.Methods;
+
 namespace TimeZoneKit.Tests;
 
 public class GeographicTests
@@ -60,7 +62,7 @@ public class GeographicTests
     [InlineData("Helsinki", "Europe/Helsinki")]
     public void FromCity_ReturnsCorrectTimeZone(string cityName, string expectedIanaId)
     {
-        var tzInfo = TimeZoneKit.FromCity(cityName);
+        var tzInfo = TimeZoneHelper.FromCity(cityName);
         Assert.NotNull(tzInfo);
         Assert.Equal(expectedIanaId, tzInfo.Id);
     }
@@ -68,9 +70,9 @@ public class GeographicTests
     [Fact]
     public void FromCity_CaseInsensitive_WorksCorrectly()
     {
-        var tz1 = TimeZoneKit.FromCity("London");
-        var tz2 = TimeZoneKit.FromCity("london");
-        var tz3 = TimeZoneKit.FromCity("LONDON");
+        var tz1 = TimeZoneHelper.FromCity("London");
+        var tz2 = TimeZoneHelper.FromCity("london");
+        var tz3 = TimeZoneHelper.FromCity("LONDON");
 
         Assert.Equal(tz1.Id, tz2.Id);
         Assert.Equal(tz2.Id, tz3.Id);
@@ -79,14 +81,14 @@ public class GeographicTests
     [Fact]
     public void FromCity_InvalidCity_ThrowsTimeZoneNotFoundException()
     {
-        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneKit.FromCity("InvalidCity"));
+        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneHelper.FromCity("InvalidCity"));
     }
 
     [Fact]
     public void FromCity_NullOrEmpty_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.FromCity(null!));
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.FromCity(""));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.FromCity(null!));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.FromCity(""));
     }
 
     [Theory]
@@ -109,7 +111,7 @@ public class GeographicTests
     [InlineData("NZ", 1)] // New Zealand has at least 1 timezone
     public void GetByCountry_ReturnsTimezones(string countryCode, int minExpectedCount)
     {
-        var timezones = TimeZoneKit.GetByCountry(countryCode);
+        var timezones = TimeZoneHelper.GetByCountry(countryCode);
         Assert.NotNull(timezones);
         Assert.True(timezones.Length >= minExpectedCount);
     }
@@ -117,8 +119,8 @@ public class GeographicTests
     [Fact]
     public void GetByCountry_CaseInsensitive_WorksCorrectly()
     {
-        var tz1 = TimeZoneKit.GetByCountry("US");
-        var tz2 = TimeZoneKit.GetByCountry("us");
+        var tz1 = TimeZoneHelper.GetByCountry("US");
+        var tz2 = TimeZoneHelper.GetByCountry("us");
 
         Assert.Equal(tz1.Length, tz2.Length);
     }
@@ -126,21 +128,21 @@ public class GeographicTests
     [Fact]
     public void GetByCountry_InvalidCode_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.GetByCountry("XX"));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.GetByCountry("XX"));
     }
 
     [Fact]
     public void GetByCountry_NullOrEmpty_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.GetByCountry(null!));
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.GetByCountry(""));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.GetByCountry(null!));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.GetByCountry(""));
     }
 
     [Fact]
     public void GetByOffset_PositiveOffset_WorksCorrectly()
     {
         var offset = TimeSpan.FromHours(9);
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.Contains("Asia/Tokyo", timezones);
@@ -150,7 +152,7 @@ public class GeographicTests
     public void GetByOffset_ReturnsMatchingTimezones()
     {
         var offset = TimeSpan.FromHours(-5);
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.NotEmpty(timezones);
@@ -161,7 +163,7 @@ public class GeographicTests
     public void GetByOffset_ZeroOffset_ReturnsGmtTimezones()
     {
         var offset = TimeSpan.Zero;
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.Contains("UTC", timezones); // Always UTC+0
@@ -191,7 +193,7 @@ public class GeographicTests
     public void GetByOffset_VariousOffsets_ReturnsExpectedTimezones(double hours, string expectedTimezone)
     {
         var offset = TimeSpan.FromHours(hours);
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.Contains(expectedTimezone, timezones);
@@ -202,7 +204,7 @@ public class GeographicTests
     {
         // India Standard Time is UTC+5:30
         var offset = TimeSpan.FromMinutes(330); // 5.5 hours
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.Contains("Asia/Kolkata", timezones);
@@ -213,7 +215,7 @@ public class GeographicTests
     {
         // Nepal Time is UTC+5:45
         var offset = TimeSpan.FromMinutes(345); // 5.75 hours
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.Contains("Asia/Kathmandu", timezones);
@@ -224,7 +226,7 @@ public class GeographicTests
     {
         // Newfoundland Standard Time is UTC-3:30
         var offset = TimeSpan.FromMinutes(-210); // -3.5 hours
-        var timezones = TimeZoneKit.GetByOffset(offset);
+        var timezones = TimeZoneHelper.GetByOffset(offset);
 
         Assert.NotNull(timezones);
         Assert.Contains("America/St_Johns", timezones);

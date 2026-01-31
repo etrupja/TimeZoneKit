@@ -31,22 +31,23 @@ Install-Package TimeZoneKit
 ## Quick Start
 
 ```csharp
-using TimeZoneKit;
-using TimeZoneKit.Extensions;
+using TimeZoneKit.Methods;
+using TimeZoneKit.Models;
 
 // Simple conversion
-var nyTime = DateTime.UtcNow.ToTimeZone("America/New_York");
+var utcTime = DateTime.UtcNow;
+var nyTime = TimeZoneHelper.Convert(utcTime, "America/New_York");
 
 // Parse various formats
-var tz = TimeZoneKit.Parse("EST");           // Abbreviation
-var tz2 = TimeZoneKit.Parse("New York");     // City name
-var tz3 = TimeZoneKit.Parse("GMT-5");        // Offset
+var tz = TimeZoneHelper.Parse("EST");           // Abbreviation
+var tz2 = TimeZoneHelper.Parse("New York");     // City name
+var tz3 = TimeZoneHelper.Parse("GMT-5");        // Offset
 
 // Check business hours
-var isOpen = DateTime.Now.IsBusinessHour("America/New_York");
+var isOpen = TimeZoneHelper.IsBusinessHour(DateTime.Now, "America/New_York");
 
 // Find meeting times across timezones
-var slots = TimeZoneKit.FindMeetingTime(
+var slots = TimeZoneHelper.FindMeetingTime(
     new[] { "America/New_York", "Europe/London", "Asia/Tokyo" },
     new TimeRange(9, 17),
     DateTime.Today
@@ -58,17 +59,19 @@ var slots = TimeZoneKit.FindMeetingTime(
 ### 1. Simple Timezone Conversion
 
 ```csharp
-// Extension methods for DateTime
-var utcTime = DateTime.UtcNow;
-var nyTime = utcTime.ToTimeZone("America/New_York");
-var londonTime = utcTime.ToTimeZone("Europe/London");
+using TimeZoneKit.Methods;
 
-// Static methods
-var converted = TimeZoneKit.Convert(dateTime, "America/New_York");
-var utc = TimeZoneKit.ToUtc(localTime, "EST");
+// Convert from UTC to specific timezone
+var utcTime = DateTime.UtcNow;
+var nyTime = TimeZoneHelper.Convert(utcTime, "America/New_York");
+var londonTime = TimeZoneHelper.Convert(utcTime, "Europe/London");
+
+// Convert to UTC
+var localTime = new DateTime(2025, 1, 28, 10, 0, 0);
+var utc = TimeZoneHelper.ToUtc(localTime, "America/New_York");
 
 // Convert between timezones
-var tokyoTime = nyTime.ToTimeZone("America/New_York", "Asia/Tokyo");
+var tokyoTime = TimeZoneHelper.Convert(nyTime, "America/New_York", "Asia/Tokyo");
 ```
 
 ### 2. Smart Timezone Parsing
@@ -76,28 +79,30 @@ var tokyoTime = nyTime.ToTimeZone("America/New_York", "Asia/Tokyo");
 TimeZoneKit can parse timezones from multiple formats:
 
 ```csharp
+using TimeZoneKit.Methods;
+
 // Abbreviations
-var tz1 = TimeZoneKit.Parse("EST");
-var tz2 = TimeZoneKit.Parse("PST");
-var tz3 = TimeZoneKit.Parse("GMT");
+var tz1 = TimeZoneHelper.Parse("EST");
+var tz2 = TimeZoneHelper.Parse("PST");
+var tz3 = TimeZoneHelper.Parse("GMT");
 
 // City names
-var tz4 = TimeZoneKit.Parse("New York");
-var tz5 = TimeZoneKit.Parse("London");
-var tz6 = TimeZoneKit.Parse("Tokyo");
+var tz4 = TimeZoneHelper.Parse("New York");
+var tz5 = TimeZoneHelper.Parse("London");
+var tz6 = TimeZoneHelper.Parse("Tokyo");
 
 // Offset strings
-var tz7 = TimeZoneKit.Parse("GMT-5");
-var tz8 = TimeZoneKit.Parse("UTC+9");
+var tz7 = TimeZoneHelper.Parse("GMT-5");
+var tz8 = TimeZoneHelper.Parse("UTC+9");
 
 // IANA timezone IDs
-var tz9 = TimeZoneKit.Parse("America/New_York");
+var tz9 = TimeZoneHelper.Parse("America/New_York");
 
 // Windows timezone IDs
-var tz10 = TimeZoneKit.Parse("Eastern Standard Time");
+var tz10 = TimeZoneHelper.Parse("Eastern Standard Time");
 
 // Safe parsing
-if (TimeZoneKit.TryParse("EST", out var tzInfo))
+if (TimeZoneHelper.TryParse("EST", out var tzInfo))
 {
     Console.WriteLine($"Parsed: {tzInfo.DisplayName}");
 }
@@ -106,81 +111,89 @@ if (TimeZoneKit.TryParse("EST", out var tzInfo))
 ### 3. IANA ↔ Windows Mapping
 
 ```csharp
+using TimeZoneKit.Methods;
+
 // Convert between IANA and Windows timezone IDs
-var windowsId = TimeZoneKit.IanaToWindows("America/New_York");
+var windowsId = TimeZoneHelper.IanaToWindows("America/New_York");
 // Returns: "Eastern Standard Time"
 
-var ianaId = TimeZoneKit.WindowsToIana("Eastern Standard Time");
+var ianaId = TimeZoneHelper.WindowsToIana("Eastern Standard Time");
 // Returns: "America/New_York"
 
 // Get TimeZoneInfo (works with both formats)
-var tzInfo = TimeZoneKit.GetTimeZoneInfo("America/New_York");
+var tzInfo = TimeZoneHelper.GetTimeZoneInfo("America/New_York");
 ```
 
 ### 4. Geographic Lookup
 
 ```csharp
+using TimeZoneKit.Methods;
+
 // Find timezone by city name
-var londonTz = TimeZoneKit.FromCity("London");
-var tokyoTz = TimeZoneKit.FromCity("Tokyo");
+var londonTz = TimeZoneHelper.FromCity("London");
+var tokyoTz = TimeZoneHelper.FromCity("Tokyo");
 
 // Get all timezones for a country (ISO 3166-1 alpha-2 code)
-var usTimezones = TimeZoneKit.GetByCountry("US");
+var usTimezones = TimeZoneHelper.GetByCountry("US");
 // Returns: ["America/New_York", "America/Chicago", "America/Denver", ...]
 
-var jpTimezones = TimeZoneKit.GetByCountry("JP");
+var jpTimezones = TimeZoneHelper.GetByCountry("JP");
 // Returns: ["Asia/Tokyo"]
 
 // Get timezones by UTC offset
-var zones = TimeZoneKit.GetByOffset(TimeSpan.FromHours(-5));
+var zones = TimeZoneHelper.GetByOffset(TimeSpan.FromHours(-5));
 // Returns all timezones with UTC-5 base offset
 ```
 
 ### 5. Search and Discovery
 
 ```csharp
+using TimeZoneKit.Methods;
+
 // Search for timezones
-var results = TimeZoneKit.Search("eastern");
+var results = TimeZoneHelper.Search("eastern");
 // Returns: ["America/New_York", "America/Detroit", ...]
 
 // Get common timezones (for dropdown lists)
-var common = TimeZoneKit.GetCommonTimezones();
+var common = TimeZoneHelper.GetCommonTimezones();
 // Returns: ["America/New_York", "America/Chicago", "Europe/London", ...]
 
 // Get friendly display names
-var displayName = TimeZoneKit.GetFriendlyName("America/New_York");
+var displayName = TimeZoneHelper.GetFriendlyName("America/New_York");
 // Returns: "Eastern Time (US & Canada)"
 ```
 
 ### 6. DST Information
 
 ```csharp
+using TimeZoneKit.Methods;
+
 // Check if a timezone supports DST
-var hasDst = TimeZoneKit.SupportsDst("America/New_York");
+var hasDst = TimeZoneHelper.SupportsDst("America/New_York");
 // Returns: true
 
 // Check if a specific date/time is in DST
-var isDst = TimeZoneKit.IsDaylightSavingTime("America/New_York", DateTime.Now);
+var isDst = TimeZoneHelper.IsDaylightSavingTime("America/New_York", DateTime.Now);
 
 // Get the UTC offset at a specific time
-var offset = TimeZoneKit.GetOffsetAt("America/New_York", DateTime.Now);
+var offset = TimeZoneHelper.GetOffsetAt("America/New_York", DateTime.Now);
 Console.WriteLine($"Current offset: {offset.TotalHours} hours");
-
-// Extension method
-var isDst2 = DateTime.Now.IsDaylightSavingTime("America/New_York");
 ```
 
 ### 7. Business Hours Support
 
 ```csharp
+using TimeZoneKit.Methods;
+using TimeZoneKit.Models;
+
 // Check if current time is during business hours (9 AM - 5 PM weekdays)
-var isOpen = DateTime.UtcNow.IsBusinessHour("America/New_York");
+var isOpen = TimeZoneHelper.IsBusinessHour(DateTime.UtcNow, "America/New_York");
 
 // Custom business hours
-var isOpen2 = DateTime.UtcNow.IsBusinessHour("America/New_York", startHour: 8, endHour: 18);
+var isOpen2 = TimeZoneHelper.IsBusinessHour(DateTime.UtcNow, "America/New_York", startHour: 8, endHour: 18);
 
 // Find next business hour
-var nextOpen = DateTime.UtcNow.NextBusinessHour("America/New_York");
+var nextOpen = TimeZoneHelper.NextBusinessHour(DateTime.UtcNow, "America/New_York");
 Console.WriteLine($"Next business hour: {nextOpen}");
 
 // Advanced: Custom business hours per day
@@ -199,8 +212,11 @@ var nextAvailable = businessHours.NextAvailableTime(DateTime.Now);
 Find time slots when all participants are available across different timezones:
 
 ```csharp
+using TimeZoneKit.Methods;
+using TimeZoneKit.Models;
+
 // Find meeting times across multiple timezones
-var slots = TimeZoneKit.FindMeetingTime(
+var slots = TimeZoneHelper.FindMeetingTime(
     timeZones: new[] { "America/New_York", "Europe/London", "Asia/Tokyo" },
     workingHours: new TimeRange(9, 17), // 9 AM - 5 PM
     date: DateTime.Today
@@ -225,7 +241,7 @@ var customHours = new[]
     new BusinessHours("Asia/Tokyo", 10, 18)
 };
 
-var customSlots = TimeZoneKit.FindMeetingTime(customHours, DateTime.Today);
+var customSlots = TimeZoneHelper.FindMeetingTime(customHours, DateTime.Today);
 ```
 
 ## Supported Timezones
@@ -316,17 +332,24 @@ TimeZoneKit includes comprehensive timezone data for **350+ cities**, **60+ coun
 | `NextBusinessHour(DateTime, string)` | Find next business hour |
 | `FindMeetingTime(string[], TimeRange, DateTime)` | Cross-timezone meetings |
 
-### Extension Methods
+### Usage Pattern
 
-All core methods are available as DateTime extension methods:
+All methods are accessed via the static `TimeZoneHelper` class:
 
 ```csharp
-dateTime.ToTimeZone(timeZoneId)
-dateTime.ToUtc(timeZoneId)
-dateTime.GetOffset(timeZoneId)
-dateTime.IsDaylightSavingTime(timeZoneId)
-dateTime.IsBusinessHour(timeZoneId)
-dateTime.NextBusinessHour(timeZoneId)
+using TimeZoneKit.Methods;
+
+// Conversion
+TimeZoneHelper.Convert(dateTime, timeZoneId)
+TimeZoneHelper.ToUtc(dateTime, timeZoneId)
+
+// Information
+TimeZoneHelper.GetOffset(dateTime, timeZoneId)
+TimeZoneHelper.IsDaylightSavingTime(timeZoneId, dateTime)
+
+// Business Hours
+TimeZoneHelper.IsBusinessHour(dateTime, timeZoneId)
+TimeZoneHelper.NextBusinessHour(dateTime, timeZoneId)
 ```
 
 ## Target Frameworks

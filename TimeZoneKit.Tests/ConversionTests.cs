@@ -1,4 +1,4 @@
-using TimeZoneKit.Extensions;
+using TimeZoneKit.Methods;
 
 namespace TimeZoneKit.Tests;
 
@@ -9,7 +9,7 @@ public class ConversionTests
     {
         // January - EST (no DST)
         var utcTime = new DateTime(2025, 1, 28, 15, 0, 0, DateTimeKind.Utc);
-        var eastTime = TimeZoneKit.Convert(utcTime, "America/New_York");
+        var eastTime = TimeZoneHelper.Convert(utcTime, "America/New_York");
 
         Assert.Equal(10, eastTime.Hour); // UTC-5 during standard time
     }
@@ -19,7 +19,7 @@ public class ConversionTests
     {
         // July - EDT (DST active)
         var utcTime = new DateTime(2025, 7, 15, 15, 0, 0, DateTimeKind.Utc);
-        var eastTime = TimeZoneKit.Convert(utcTime, "America/New_York");
+        var eastTime = TimeZoneHelper.Convert(utcTime, "America/New_York");
 
         Assert.Equal(11, eastTime.Hour); // UTC-4 during daylight time
     }
@@ -28,7 +28,7 @@ public class ConversionTests
     public void Convert_BetweenTimezones_ReturnsCorrectTime()
     {
         var nyTime = new DateTime(2025, 1, 28, 10, 0, 0, DateTimeKind.Unspecified);
-        var tokyoTime = TimeZoneKit.Convert(nyTime, "America/New_York", "Asia/Tokyo");
+        var tokyoTime = TimeZoneHelper.Convert(nyTime, "America/New_York", "Asia/Tokyo");
 
         // NY is UTC-5, Tokyo is UTC+9, difference is 14 hours
         Assert.Equal(29, tokyoTime.Day); // Next day (Jan 29)
@@ -40,7 +40,7 @@ public class ConversionTests
     public void ToUtc_FromEastern_ReturnsCorrectTime()
     {
         var localTime = new DateTime(2025, 1, 28, 10, 0, 0);
-        var utcTime = TimeZoneKit.ToUtc(localTime, "America/New_York");
+        var utcTime = TimeZoneHelper.ToUtc(localTime, "America/New_York");
 
         Assert.Equal(15, utcTime.Hour); // 10 AM EST = 3 PM UTC
     }
@@ -49,30 +49,30 @@ public class ConversionTests
     public void Convert_NullTimeZoneId_ThrowsArgumentNullException()
     {
         var dateTime = DateTime.UtcNow;
-        Assert.Throws<ArgumentNullException>(() => TimeZoneKit.Convert(dateTime, null!));
+        Assert.Throws<ArgumentNullException>(() => TimeZoneHelper.Convert(dateTime, null!));
     }
 
     [Fact]
     public void Convert_InvalidTimeZoneId_ThrowsTimeZoneNotFoundException()
     {
         var dateTime = DateTime.UtcNow;
-        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneKit.Convert(dateTime, "Invalid/Zone"));
+        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneHelper.Convert(dateTime, "Invalid/Zone"));
     }
 
     [Fact]
-    public void ToTimeZone_ExtensionMethod_WorksCorrectly()
+    public void ToTimeZone_StaticMethod_WorksCorrectly()
     {
         var utcTime = new DateTime(2025, 1, 28, 15, 0, 0, DateTimeKind.Utc);
-        var nyTime = utcTime.ToTimeZone("America/New_York");
+        var nyTime = TimeZoneHelper.ToTimeZone(utcTime, "America/New_York");
 
         Assert.Equal(10, nyTime.Hour);
     }
 
     [Fact]
-    public void ToUtc_ExtensionMethod_WorksCorrectly()
+    public void ToUtc_StaticMethod_WorksCorrectly()
     {
         var localTime = new DateTime(2025, 1, 28, 10, 0, 0);
-        var utcTime = localTime.ToUtc("America/New_York");
+        var utcTime = TimeZoneHelper.ToUtc(localTime, "America/New_York");
 
         Assert.Equal(15, utcTime.Hour);
     }
@@ -87,8 +87,8 @@ public class ConversionTests
     {
         var utcTime = DateTime.UtcNow;
 
-        var result1 = TimeZoneKit.Convert(utcTime, ianaId);
-        var result2 = TimeZoneKit.Convert(utcTime, windowsId);
+        var result1 = TimeZoneHelper.Convert(utcTime, ianaId);
+        var result2 = TimeZoneHelper.Convert(utcTime, windowsId);
 
         // Both should produce the same result
         Assert.Equal(result1.Hour, result2.Hour);
@@ -105,7 +105,7 @@ public class ConversionTests
     {
         // Use January date to avoid DST complications
         var sourceTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Unspecified);
-        var converted = TimeZoneKit.Convert(sourceTime, fromTz, toTz);
+        var converted = TimeZoneHelper.Convert(sourceTime, fromTz, toTz);
 
         // Verify the conversion happened (hour changed)
         Assert.NotEqual(sourceTime.Hour, converted.Hour);
@@ -116,11 +116,11 @@ public class ConversionTests
     {
         // Test conversion before DST starts
         var beforeDst = new DateTime(2025, 3, 1, 12, 0, 0, DateTimeKind.Utc);
-        var nyBefore = TimeZoneKit.Convert(beforeDst, "America/New_York");
+        var nyBefore = TimeZoneHelper.Convert(beforeDst, "America/New_York");
 
         // Test conversion after DST starts
         var afterDst = new DateTime(2025, 4, 15, 12, 0, 0, DateTimeKind.Utc);
-        var nyAfter = TimeZoneKit.Convert(afterDst, "America/New_York");
+        var nyAfter = TimeZoneHelper.Convert(afterDst, "America/New_York");
 
         // Hour offset should be different (EST vs EDT)
         Assert.NotEqual(nyBefore.Hour, nyAfter.Hour);
@@ -131,10 +131,10 @@ public class ConversionTests
     {
         var utcTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
 
-        var nyTime = TimeZoneKit.Convert(utcTime, "America/New_York");
-        var londonTime = TimeZoneKit.Convert(utcTime, "Europe/London");
-        var tokyoTime = TimeZoneKit.Convert(utcTime, "Asia/Tokyo");
-        var sydneyTime = TimeZoneKit.Convert(utcTime, "Australia/Sydney");
+        var nyTime = TimeZoneHelper.Convert(utcTime, "America/New_York");
+        var londonTime = TimeZoneHelper.Convert(utcTime, "Europe/London");
+        var tokyoTime = TimeZoneHelper.Convert(utcTime, "Asia/Tokyo");
+        var sydneyTime = TimeZoneHelper.Convert(utcTime, "Australia/Sydney");
 
         // Verify all conversions happened
         Assert.NotEqual(utcTime.Hour, nyTime.Hour);
@@ -149,9 +149,9 @@ public class ConversionTests
     {
         var localTime = new DateTime(2025, 1, 15, 12, 0, 0);
 
-        var utcFromNy = TimeZoneKit.ToUtc(localTime, "America/New_York");
-        var utcFromLondon = TimeZoneKit.ToUtc(localTime, "Europe/London");
-        var utcFromTokyo = TimeZoneKit.ToUtc(localTime, "Asia/Tokyo");
+        var utcFromNy = TimeZoneHelper.ToUtc(localTime, "America/New_York");
+        var utcFromLondon = TimeZoneHelper.ToUtc(localTime, "Europe/London");
+        var utcFromTokyo = TimeZoneHelper.ToUtc(localTime, "Asia/Tokyo");
 
         // All should be different UTC times
         Assert.NotEqual(utcFromNy, utcFromLondon);
@@ -164,8 +164,8 @@ public class ConversionTests
         var originalUtc = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
 
         // Convert UTC -> NY -> UTC
-        var nyTime = TimeZoneKit.Convert(originalUtc, "America/New_York");
-        var backToUtc = TimeZoneKit.ToUtc(nyTime, "America/New_York");
+        var nyTime = TimeZoneHelper.Convert(originalUtc, "America/New_York");
+        var backToUtc = TimeZoneHelper.ToUtc(nyTime, "America/New_York");
 
         Assert.Equal(originalUtc.Hour, backToUtc.Hour);
         Assert.Equal(originalUtc.Minute, backToUtc.Minute);
@@ -181,8 +181,8 @@ public class ConversionTests
         var winterTime = new DateTime(2025, 1, 15, 12, 0, 0, DateTimeKind.Utc);
         var summerTime = new DateTime(2025, 7, 15, 12, 0, 0, DateTimeKind.Utc);
 
-        var winterConverted = TimeZoneKit.Convert(winterTime, timeZoneId);
-        var summerConverted = TimeZoneKit.Convert(summerTime, timeZoneId);
+        var winterConverted = TimeZoneHelper.Convert(winterTime, timeZoneId);
+        var summerConverted = TimeZoneHelper.Convert(summerTime, timeZoneId);
 
         // Hour offset should be the same in winter and summer
         var winterOffset = winterConverted.Hour - winterTime.Hour;

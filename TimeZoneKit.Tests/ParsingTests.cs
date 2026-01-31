@@ -1,3 +1,5 @@
+using TimeZoneKit.Methods;
+
 namespace TimeZoneKit.Tests;
 
 public class ParsingTests
@@ -25,7 +27,7 @@ public class ParsingTests
     [InlineData("WIB", "Asia/Jakarta")]
     public void Parse_Abbreviation_ReturnsCorrectTimeZone(string abbreviation, string expectedIanaId)
     {
-        var tz = TimeZoneKit.Parse(abbreviation);
+        var tz = TimeZoneHelper.Parse(abbreviation);
         Assert.NotNull(tz);
         Assert.Contains(expectedIanaId, tz.Id);
     }
@@ -58,7 +60,7 @@ public class ParsingTests
     [InlineData("Auckland", "Pacific/Auckland")]
     public void Parse_CityName_ReturnsCorrectTimeZone(string cityName, string expectedIanaId)
     {
-        var tz = TimeZoneKit.Parse(cityName);
+        var tz = TimeZoneHelper.Parse(cityName);
         Assert.NotNull(tz);
         Assert.Equal(expectedIanaId, tz.Id);
     }
@@ -102,7 +104,7 @@ public class ParsingTests
     [InlineData("Africa/Johannesburg")]
     public void Parse_IanaId_ReturnsCorrectTimeZone(string ianaId)
     {
-        var tz = TimeZoneKit.Parse(ianaId);
+        var tz = TimeZoneHelper.Parse(ianaId);
         Assert.NotNull(tz);
         Assert.Equal(ianaId, tz.Id);
     }
@@ -126,28 +128,28 @@ public class ParsingTests
     [InlineData("Russian Standard Time")]
     public void Parse_WindowsId_ReturnsCorrectTimeZone(string windowsId)
     {
-        var tz = TimeZoneKit.Parse(windowsId);
+        var tz = TimeZoneHelper.Parse(windowsId);
         Assert.NotNull(tz);
     }
 
     [Fact]
     public void Parse_InvalidTimeZone_ThrowsTimeZoneNotFoundException()
     {
-        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneKit.Parse("InvalidZone"));
+        Assert.Throws<TimeZoneNotFoundException>(() => TimeZoneHelper.Parse("InvalidZone"));
     }
 
     [Fact]
     public void Parse_NullOrEmpty_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.Parse(null!));
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.Parse(""));
-        Assert.Throws<ArgumentException>(() => TimeZoneKit.Parse("   "));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.Parse(null!));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.Parse(""));
+        Assert.Throws<ArgumentException>(() => TimeZoneHelper.Parse("   "));
     }
 
     [Fact]
     public void TryParse_ValidInput_ReturnsTrue()
     {
-        var result = TimeZoneKit.TryParse("EST", out var tzInfo);
+        var result = TimeZoneHelper.TryParse("EST", out var tzInfo);
 
         Assert.True(result);
         Assert.NotNull(tzInfo);
@@ -156,7 +158,7 @@ public class ParsingTests
     [Fact]
     public void TryParse_InvalidInput_ReturnsFalse()
     {
-        var result = TimeZoneKit.TryParse("InvalidZone", out var tzInfo);
+        var result = TimeZoneHelper.TryParse("InvalidZone", out var tzInfo);
 
         Assert.False(result);
         Assert.Null(tzInfo);
@@ -168,16 +170,16 @@ public class ParsingTests
     [InlineData("GMT+0")]
     public void Parse_OffsetString_ReturnsTimeZone(string offset)
     {
-        var tz = TimeZoneKit.Parse(offset);
+        var tz = TimeZoneHelper.Parse(offset);
         Assert.NotNull(tz);
     }
 
     [Fact]
     public void Parse_CaseInsensitive_WorksCorrectly()
     {
-        var tz1 = TimeZoneKit.Parse("EST");
-        var tz2 = TimeZoneKit.Parse("est");
-        var tz3 = TimeZoneKit.Parse("Est");
+        var tz1 = TimeZoneHelper.Parse("EST");
+        var tz2 = TimeZoneHelper.Parse("est");
+        var tz3 = TimeZoneHelper.Parse("Est");
 
         Assert.NotNull(tz1);
         Assert.NotNull(tz2);

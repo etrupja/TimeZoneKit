@@ -1,3 +1,5 @@
+using TimeZoneKit.Methods;
+
 namespace TimeZoneKit.Models;
 
 /// <summary>
@@ -45,7 +47,7 @@ public class MeetingSlot
     /// <returns>The start time in the specified timezone.</returns>
     public DateTime GetStartTimeInZone(string timeZoneId)
     {
-        return TimeZoneKit.Convert(StartTime, timeZoneId);
+        return TimeZoneHelper.Convert(StartTime, timeZoneId);
     }
 
     /// <summary>
@@ -55,7 +57,7 @@ public class MeetingSlot
     /// <returns>The end time in the specified timezone.</returns>
     public DateTime GetEndTimeInZone(string timeZoneId)
     {
-        return TimeZoneKit.Convert(EndTime, timeZoneId);
+        return TimeZoneHelper.Convert(EndTime, timeZoneId);
     }
 
     /// <summary>

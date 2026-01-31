@@ -15,8 +15,8 @@
         <Description>A simple, intuitive timezone library for .NET with localization, geographic lookup, and business hours support. Easier than NodaTime, more powerful than TimeZoneConverter.</Description>
         <PackageTags>timezone;iana;tzdb;datetime;localization;dst;business-hours;geographic</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/ervistrupja/TimeZoneKit</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/ervistrupja/TimeZoneKit</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/etrupja/TimeZoneKit</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/etrupja/TimeZoneKit</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>v1.1.0: Massive expansion - 350+ cities (from 80), 60+ countries (from 23), 110+ timezone mappings (from 25), 400+ unit tests (from 81). Comprehensive global coverage including all US/Canada zones, complete European coverage, all 11 Russian time zones, full Asia/Pacific support, and complete Latin America. Added support for half-hour and quarter-hour offsets.</PackageReleaseNotes>
